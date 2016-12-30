@@ -1,0 +1,2 @@
+facturacion.Interfaz_buscarproveedor$1
+facturacion.Interfaz_buscarproveedor

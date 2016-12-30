@@ -1,0 +1,11 @@
+facturacion.Interfaz_articulo$6
+facturacion.Interfaz_articulo$7
+facturacion.Interfaz_articulo$8
+facturacion.Interfaz_articulo$9
+facturacion.Interfaz_articulo$10
+facturacion.Interfaz_articulo
+facturacion.Interfaz_articulo$1
+facturacion.Interfaz_articulo$2
+facturacion.Interfaz_articulo$3
+facturacion.Interfaz_articulo$4
+facturacion.Interfaz_articulo$5
