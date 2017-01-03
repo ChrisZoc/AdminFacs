@@ -30,7 +30,7 @@ private Sentencias_sql sql;
     {               
         
             String datos[] = {documento,tipo,nombres,apellidos,direccion,ciudad,telefono};           
-            return sql.insertar(datos, "insert into Cliente(Documento, cod_tipo_documento, Nombres, Apellidos, Direccion, cod_ciudad,Telefono) values(?,?,?,?,?,?,?)");
+            return sql.insertar(datos, "insert into cliente(Documento, cod_tipo_documento, Nombres, Apellidos, Direccion, cod_ciudad,Telefono) values(?,?,?,?,?,?,?)");
                       
                 
     }

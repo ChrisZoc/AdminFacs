@@ -19,7 +19,7 @@ public class conexion {
          
          con = DriverManager.getConnection(url,"root","");
          if (con!=null){
-            System.out.println("Conexión a base de datos facturacion. listo");
+            System.out.println("Conexión a base de datos facturacion lista");
          }
       }
          catch(SQLException e)
