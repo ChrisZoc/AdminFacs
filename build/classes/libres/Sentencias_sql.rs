@@ -1,1 +1,0 @@
-facturacion.Sentencias_sql

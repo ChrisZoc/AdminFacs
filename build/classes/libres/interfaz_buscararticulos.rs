@@ -1,2 +1,0 @@
-facturacion.interfaz_buscararticulos$1
-facturacion.interfaz_buscararticulos
