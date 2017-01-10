@@ -19,7 +19,7 @@ public class Interfaz_Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField cedulatxt;
 	private JPasswordField contrasenatxt;
-
+	public static UsuarioLogeado userloged;
 	public Interfaz_Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 360, 210);
@@ -51,12 +51,17 @@ public class Interfaz_Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				 char clave[]=contrasenatxt.getPassword();
 				 String clavedef=new String(clave);
-				 if (cedulatxt.getText().equals("1725453102") && clavedef.equals("12345")){
+				 ValidarLogin validador= new ValidarLogin();
+				 if (validador.validar_ingreso(cedulatxt.getText(),clavedef)==1){
 
 					 JOptionPane.showMessageDialog(null, "Bienvenido\n"+ "Has ingresado satisfactoriamente a"
 					 		+ "l sistema",  null,JOptionPane.INFORMATION_MESSAGE);
-				       new Interfaz_principal().setVisible(true);
-				 }else {
+				      userloged = new UsuarioLogeado();
+				      userloged.setPass(clavedef);
+				      userloged.setUsuario(cedulatxt.getText());
+				      new Interfaz_tipoFacturaAIngresar().setVisible(true);
+
+				      }else {
 	                    JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
 	                    + "Por favor ingrese un usuario y/o contraseña correctos", "Acceso denegado",
 	                    JOptionPane.ERROR_MESSAGE);

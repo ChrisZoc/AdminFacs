@@ -61,6 +61,11 @@ public class Interfaz_Presentacion extends JFrame {
 		contentPane.add(btnUsuarioRegistrado);
 		
 		JButton btnNuevoUsuario = new JButton("Nuevo Usuario");
+		btnNuevoUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			new Interfaz_Clientes1().setVisible(true);	
+			}
+		});
 		btnNuevoUsuario.setBounds(250, 188, 137, 25);
 		contentPane.add(btnNuevoUsuario);
 	}
