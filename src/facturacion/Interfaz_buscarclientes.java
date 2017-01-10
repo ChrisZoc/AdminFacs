@@ -23,7 +23,7 @@ public class Interfaz_buscarclientes extends javax.swing.JInternalFrame {
               
     
      public void mostrar_tabla(){
-        control_cliente control = new control_cliente("Documento","Tipo de documento","Nombres","Apellidos","Direccion","Ciudad","telefono");       
+        control_cliente control = new control_cliente("Documento","Tipo de documento","Nombres","Apellidos","Direccion","Ciudad","telefono", "Contraseña");       
         String[] columnas = {"Documento","Tipo de documento","Nombres","Apellidos","Direccion","Ciudad","Telefono"};
         datostabla = control.consulta_clientes();
         DefaultTableModel datos = new DefaultTableModel(datostabla,columnas);

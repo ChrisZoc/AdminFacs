@@ -39,6 +39,22 @@ public class Sentencias_sql {
        return estado;
    }
     
+    public boolean actualizar(String datos[], String update){
+      boolean estado = false;
+       try {
+            pstatement = conexion.conectado().prepareStatement(update);
+            for(int i=0; i<=datos.length-1;i++){
+                pstatement.setString(i+1, datos[i]);
+            }
+            pstatement.execute();
+            pstatement.close();
+            estado = true;
+         }catch(SQLException e){
+         System.out.println(e);
+      }
+       return estado;
+   }
+    
      public Object [][] GetTabla(String colName[], String tabla, String sql){
       int registros = 0;
       
