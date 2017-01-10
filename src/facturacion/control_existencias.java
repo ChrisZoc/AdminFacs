@@ -183,21 +183,5 @@ public class control_existencias
         public Double total_factura(String numfact)
         {
         return sentencia.datos_totalfactura("total", "select round( sum( total ) , 2 ) as total from detalle_factura where cod_factura='"+numfact+"';");
-        }
-        
-        public Object[][] consulta_nom_y_apell(String RUC){
-        	String [] columnas={"Nombre","Apellido"};
-        	Object[][] datos=sentencia.GetTabla(columnas, "proveedor", "select Nombre,Apellido from proveedor where No_documento ='"+RUC+"'");
-    		return datos;
-        	
-        }
-       
-    	public boolean existe_ruc( String RUC)
-        {
-            
-           this.Documento = RUC;
-           return sentencia.existencias(RUC, " from proveedor where No_documento='"+RUC+"';");
-         
-       }
-        
+    }
     }

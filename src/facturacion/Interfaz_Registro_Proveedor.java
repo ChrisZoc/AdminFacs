@@ -136,14 +136,28 @@ control_existencias controlExistencias = new control_existencias();
 			public void focusLost(FocusEvent arg0) {
 				// TODO Auto-generated method stub
 				String RUC=documentoproveedorjTextField9.getText();
-				Boolean hayRuc =controlExistencias.existe_ruc(RUC);
+				
+				Boolean hayRuc =existe_ruc(RUC);
 				if(hayRuc=true){
-					Object[][] nombreApell = controlExistencias.consulta_nom_y_apell(RUC);
+					Object[][] nombreApell = consulta_nom_y_apell(RUC);
 					nomproveedorjTextField9.setText(nombreApell[0][0].toString());
 					apellproveedorjTextField9.setText(nombreApell[0][1].toString());
 					
 				}
 			};
+			public Object[][] consulta_nom_y_apell(String RUC){
+	        	String [] columnas={"Nombre","Apellido"};
+	        	Object[][] datos=controlExistencias.getSentencia().GetTabla(columnas, "proveedor", "select Nombre,Apellido from proveedor where No_documento ='"+RUC+"'");
+	    		return datos;
+	        	
+	        }
+			public boolean existe_ruc( String RUC)
+	        {
+	            
+				controlExistencias.setId_cliente(RUC);
+	           return controlExistencias.getSentencia().existencias(RUC, " from proveedor where No_documento='"+RUC+"';");
+	         
+	       }
         });
         
         jButton1.setText("Registrar");
