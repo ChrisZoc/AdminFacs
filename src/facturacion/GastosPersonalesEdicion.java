@@ -5,6 +5,8 @@
  */
 package facturacion;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Rainy
@@ -14,9 +16,25 @@ public class GastosPersonalesEdicion extends javax.swing.JFrame {
     /**
      * Creates new form GastosPersonalesEdicion
      */
+    
+    control_existencias controlExistencias = new control_existencias();
     public GastosPersonalesEdicion() {
         initComponents();
+        btnEditar.setEnabled(false);
+        
+        Object[] tipoGasto = controlExistencias.combox("gastos_personales","tipo_gasto");
+        cmbTipoGasto.removeAllItems();
+        for(int i =0;i<tipoGasto.length;i++)
+        {
+            cmbTipoGasto.addItem(tipoGasto[i]);
+        }
+        cmbTipoGasto.setSelectedIndex(-1);
+        btnEditar.setEnabled(false);
+        bloquearCajas();
     }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,6 +53,9 @@ public class GastosPersonalesEdicion extends javax.swing.JFrame {
         txtAcumulado = new javax.swing.JTextField();
         lblAnio = new javax.swing.JLabel();
         txtAnio = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,6 +75,27 @@ public class GastosPersonalesEdicion extends javax.swing.JFrame {
             }
         });
 
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,6 +103,12 @@ public class GastosPersonalesEdicion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar))
                     .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAnio)
                     .addGroup(layout.createSequentialGroup()
@@ -94,7 +142,12 @@ public class GastosPersonalesEdicion extends javax.swing.JFrame {
                 .addComponent(lblAnio)
                 .addGap(18, 18, 18)
                 .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(165, 165, 165))
+                .addGap(106, 106, 106)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnCancelar))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -104,9 +157,68 @@ public class GastosPersonalesEdicion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnioActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+        if(cmbTipoGasto.getSelectedIndex()==-1)
+        {
+             JOptionPane.showMessageDialog(null, "No ha seleccionado un tipo de gasto a editar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            String tipoGasto = cmbTipoGasto.getSelectedItem().toString();
+            String[] colName = {"id_tipo_gasto","tipo_gasto", "limite_gasto", "acumulado_a_fecha", "diferencia", "Anio"};
+            Object[][] gasto = controlExistencias.getSentencia().GetTabla(colName, "gastos_personales", "select * from gastos_personales where tipo_gasto='"+tipoGasto+"'");
+            txtLimiteGasto.setText(gasto[0][2].toString());
+            txtAcumulado.setText(gasto[0][3].toString());
+            txtAnio.setText(gasto[0][5].toString());
+            desbloquearCajas();
+            btnEditar.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        if((!txtAcumulado.getText().isEmpty())&&(!txtAnio.getText().isEmpty())&&(!txtLimiteGasto.getText().isEmpty()))
+        {
+            String acumulado, anio, limiteGasto;
+            
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "No ha ingresado los datos a modificar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+        bloquearCajas();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    
+    public void limpiar()
+    {
+        cmbTipoGasto.setSelectedIndex(-1);
+        txtAcumulado.setText("");
+        txtAnio.setText("");
+        txtLimiteGasto.setText("");
+    }
+    
+    public void bloquearCajas()
+    {
+        txtAcumulado.setEnabled(false);
+        txtAnio.setEnabled(false);
+        txtLimiteGasto.setEnabled(false);
+    }
+    
+    public void desbloquearCajas()
+    {
+        txtAcumulado.setEnabled(true);
+        txtAnio.setEnabled(true);
+        txtLimiteGasto.setEnabled(true);
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -140,6 +252,9 @@ public class GastosPersonalesEdicion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JComboBox cmbTipoGasto;
     private javax.swing.JLabel lblAcumulado;
     private javax.swing.JLabel lblAnio;
