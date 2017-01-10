@@ -43,8 +43,8 @@ private Sentencias_sql sql;
     
     public boolean actualizar_cliente()
     {
-        String datos[] = {documento,tipo,nombres,apellidos,direccion,ciudad,telefono, contrasenia};           
-        return sql.actualizar(datos, "update cliente set (Nombres=?, Apellidos=?, Direccion=?, Nombre_ciudad=?, Telefono=?, Contrasenia=?)");
+        String datos[] = {nombres,apellidos,direccion,ciudad,telefono, contrasenia, documento};           
+        return sql.actualizar(datos, "update cliente set Nombres=?, Apellidos=?, Direccion=?, cod_ciudad=?, Telefono=?, Contrasenia=? where documento=?");
     }
      
     

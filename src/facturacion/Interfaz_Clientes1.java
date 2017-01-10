@@ -322,10 +322,12 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
                 nom = txtNombres.getText();
                 ape = txtApellidos.getText();
                 dir = txtDireccion.getText();
-                ciu = cmbCiudad.getSelectedItem().toString();
                 tipo = cmbTipoDocumento.getSelectedItem().toString();
                 tel = txtTelefono.getText();
                 contrasenia = txtContrasenia.getText();
+                String[] columna1 = {"Codigo_ciudad"};
+                String index2 = (String)controlExistencias.getSentencia().GetTabla(columna1, "ciudad", "select Codigo_ciudad from ciudad where Nombre_ciudad='"+cmbCiudad.getSelectedItem()+"';")[0][0];
+                ciu = index2;
                 control_cliente ctrlCliente = new control_cliente(doc, tipo, nom, ape, dir, ciu, tel, contrasenia);
                 if(ctrlCliente.actualizar_cliente())
                 {
@@ -361,7 +363,7 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
         {
                 btnEditarRegistro.setEnabled(true);
                 String tipoDocumento, ciudad;
-                String[] colName = {"Documento", "cod_tipo_documento", "Nombres", "Apellidos", "Direccion", "cod_ciudad", "Telefono", "Contraseña"};
+                String[] colName = {"Documento", "cod_tipo_documento", "Nombres", "Apellidos", "Direccion", "cod_ciudad", "Telefono", "Contrasenia"};
                 Object[][] GetTabla = controlExistencias.getSentencia().GetTabla(colName, "cliente", "select * from cliente where Documento='"+txtDocumento.getText()+"'");
                 txtNombres.setText(GetTabla[0][2].toString());
                 txtApellidos.setText(GetTabla[0][3].toString());
