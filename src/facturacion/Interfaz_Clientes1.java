@@ -248,6 +248,7 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         desbloquearCajas();
         btnBuscar.setEnabled(false);
+        btnEditarRegistro.setEnabled(false);
         btnRegistrar.setEnabled(true);
     }//GEN-LAST:event_btnNUevoRegistroActionPerformed
 
@@ -332,6 +333,8 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
                 if(ctrlCliente.actualizar_cliente())
                 {
                     JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente", "Proceso exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
+                    bloquearCajas();
                 }
                 else
                 {
@@ -355,6 +358,7 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         desbloquearCajas();
         btnRegistrar.setEnabled(false);
+        btnNUevoRegistro.setEnabled(false);
         if(txtDocumento.getText().equals(""))
         {
             JOptionPane.showMessageDialog(null, "No ha ingresado un documento", "Error", JOptionPane.ERROR_MESSAGE);
