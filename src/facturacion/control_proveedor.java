@@ -1,12 +1,7 @@
-
 package facturacion;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author elaprendiz http://www.youtube.com/user/JleoD7
- */
 public class control_proveedor {
     
 private String Nombre_comercial;

@@ -1,7 +1,4 @@
-
 package facturacion;
-
-//import com.sun.crypto.provider.RSACipher;
 import java.awt.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,10 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author elaprendiz http://www.youtube.com/user/JleoD7
- */
+
 public class Sentencias_sql {
     
     private conexion conexion;

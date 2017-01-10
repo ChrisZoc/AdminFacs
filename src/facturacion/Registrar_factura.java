@@ -34,28 +34,6 @@ public class Registrar_factura extends JFrame {
 	private JTextField txtValor;
 	private JTextField ivatxt;
 	private JTextField txtTotal;
-
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registrar_factura frame = new Registrar_factura();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 * @throws ParseException 
-	 */
 	public Registrar_factura() throws ParseException {
 		control_existencias controlExistencias = new control_existencias();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

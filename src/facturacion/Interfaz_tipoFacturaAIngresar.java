@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -37,6 +38,12 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 		JButton btnIngresoFacturaManual = new JButton("Ingreso Factura Manual");
 		btnIngresoFacturaManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					new Registrar_factura().setVisible(true);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnIngresoFacturaManual.setBounds(32, 114, 187, 25);
@@ -45,6 +52,7 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 		JButton btnIngresoFacturaElectronica = new JButton("Ingreso Factura Electronica");
 		btnIngresoFacturaElectronica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				new seleccion().setVisible(true);
 			}
 		});
 		btnIngresoFacturaElectronica.setBounds(231, 114, 187, 25);
@@ -59,6 +67,25 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 		lblBienvenido.setBounds(172, 22, 102, 15);
 		contentPane.add(lblBienvenido);
 		lblUsuario.setText(nombre);
+		
+		JButton btnRegistroDeProveedores = new JButton(" Registro de proveedores");
+		btnRegistroDeProveedores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Interfaz_Registro_Proveedor form= new Interfaz_Registro_Proveedor();
+				form.setVisible(true);
+			}
+		});
+		btnRegistroDeProveedores.setBounds(32, 174, 187, 25);
+		contentPane.add(btnRegistroDeProveedores);
+		
+		JButton btnGastosPersonales = new JButton("Gastos personales");
+		btnGastosPersonales.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new GastosPersonales().setVisible(true);
+			}
+		});
+		btnGastosPersonales.setBounds(231, 174, 187, 25);
+		contentPane.add(btnGastosPersonales);
 
 	}
 	private String obtenerNombre(String cedula2) {
@@ -80,7 +107,7 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 	        
 	        if(rs.next()){
 
-	            resultado+=rs.getString("Nombres");
+	            resultado+=rs.getString("Nombres"+" ");
 	            resultado+=rs.getString("Apellidos");
 	            System.out.println(resultado);
 	        }

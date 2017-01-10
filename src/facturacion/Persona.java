@@ -1,13 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package facturacion;
 
-/**
- *
- * @author elaprendiz http://www.youtube.com/user/JleoD7
- */
+
 public class Persona {
     
     

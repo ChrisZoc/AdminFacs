@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facturacion;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Rainy
- */
+
 public class Interfaz_Clientes1 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Interfaz_Clientes1
-     */
     
     control_existencias controlExistencias = new control_existencias();
     public Interfaz_Clientes1() {
@@ -395,13 +384,13 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interfaz_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger("error", null);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interfaz_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger("error", null);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interfaz_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger("error", null);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interfaz_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger("error", null);
         }
         //</editor-fold>
 

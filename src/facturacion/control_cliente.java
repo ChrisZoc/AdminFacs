@@ -1,20 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package facturacion;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-    
-    
-    
-/**
- *
- * @author elaprendiz http://www.youtube.com/user/JleoD7
- */
 public class control_cliente extends Persona {
 private Sentencias_sql sql; 
 
