@@ -81,7 +81,7 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 		JButton btnGastosPersonales = new JButton("Gastos personales");
 		btnGastosPersonales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new GastosPersonales().setVisible(true);
+				new GastosPersonalesRegistro().setVisible(true);
 			}
 		});
 		btnGastosPersonales.setBounds(231, 174, 187, 25);
@@ -107,7 +107,8 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 	        
 	        if(rs.next()){
 
-	            resultado+=rs.getString("Nombres"+" ");
+	            resultado+=rs.getString("Nombres");
+	            resultado+=" ";
 	            resultado+=rs.getString("Apellidos");
 	            System.out.println(resultado);
 	        }
