@@ -44,6 +44,7 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
         btnNuevo = new javax.swing.JButton();
         btnIngresar = new javax.swing.JButton();
         txtTipoGasto = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +76,13 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
             }
         });
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +93,9 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
-                        .addComponent(btnIngresar))
+                        .addComponent(btnIngresar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtTipoGasto, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtAnio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
@@ -119,7 +129,8 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
-                    .addComponent(btnIngresar))
+                    .addComponent(btnIngresar)
+                    .addComponent(btnCancelar))
                 .addGap(18, 18, 18))
         );
 
@@ -152,6 +163,8 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
             if(insertar)
             {
                 JOptionPane.showMessageDialog(null, "Se ha insertado el gasto exitosamente", "Proceso exitoso", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+                bloquearCajas();
             }
             else
             {
@@ -163,6 +176,12 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No ha ingresado todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+        bloquearCajas();
+    }//GEN-LAST:event_btnCancelarActionPerformed
     
     
     public void limpiar()
@@ -225,6 +244,7 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel lblAcumulado;
