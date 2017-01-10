@@ -65,11 +65,11 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         lblContraseña = new javax.swing.JLabel();
-        txtContrasenia = new javax.swing.JTextField();
         lblConfirmarContrasenia = new javax.swing.JLabel();
-        txtConfirmarContrasenia = new javax.swing.JTextField();
         btnEditarRegistro = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        txtContrasenia = new javax.swing.JPasswordField();
+        txtConfirmarContrasenia = new javax.swing.JPasswordField();
 
         lblDocumento.setText("Documento");
 
@@ -120,6 +120,7 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
         });
 
         lblContraseña.setText("Contraseña");
+        lblContraseña.setToolTipText("Mínimo 6 caracteres, una letra, un número y un caracter especial (*,_,-)");
 
         lblConfirmarContrasenia.setText("Confirmar Contraseña");
 
@@ -151,11 +152,6 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblContraseña))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnBuscar)
                                 .addGap(29, 29, 29)
@@ -163,32 +159,37 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnNUevoRegistro)
                                 .addGap(18, 18, 18)
+                                .addComponent(btnRegistrar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCancelar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSalir))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtContrasenia)
+                                        .addGap(71, 71, 71))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(lblDocumento)
+                                                .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblNombres)
+                                                .addComponent(lblDireccion)
+                                                .addComponent(txtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                                                .addComponent(txtDireccion))
+                                            .addComponent(lblContraseña))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblConfirmarContrasenia)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnRegistrar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnCancelar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnSalir))
-                                    .addComponent(txtConfirmarContrasenia)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblDocumento)
-                                    .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblNombres)
-                                    .addComponent(lblDireccion)
-                                    .addComponent(txtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                                    .addComponent(txtDireccion))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblCiudad)
-                                    .addComponent(lblApellidos)
-                                    .addComponent(cmbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblTipoDocumento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lblCiudad)
+                                        .addComponent(lblApellidos)
+                                        .addComponent(cmbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                                        .addComponent(cmbTipoDocumento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblTipoDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtConfirmarContrasenia)))))
                         .addGap(54, 54, 54))))
         );
         layout.setVerticalGroup(
@@ -226,9 +227,9 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
                     .addComponent(lblContraseña)
                     .addComponent(lblConfirmarContrasenia))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtConfirmarContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(txtContrasenia))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtConfirmarContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNUevoRegistro)
@@ -246,44 +247,56 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
     private void btnNUevoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNUevoRegistroActionPerformed
         // TODO add your handling code here:
         desbloquearCajas();
+        btnBuscar.setEnabled(false);
+        btnRegistrar.setEnabled(true);
     }//GEN-LAST:event_btnNUevoRegistroActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        String doc,nom,ape,dir,ciu,tipo,tel;
         
-        String index1, index2;
-        String[] columna= {"id_tipo_documento"};
-        index1 = (String)controlExistencias.getSentencia().GetTabla(columna, "tipo_de_documento", "select id_tipo_documento from tipo_de_documento where Descripcion='"+cmbTipoDocumento.getSelectedItem()+"';")[0][0];
-        
-        doc = txtDocumento.getText();
-        tipo= index1;
-        nom = txtNombres.getText();
-        ape = txtApellidos.getText();
-        dir = txtDireccion.getText();
-        
-        String[] columna1 = {"Codigo_ciudad"};
-        index2 = (String)controlExistencias.getSentencia().GetTabla(columna1, "ciudad", "select Codigo_ciudad from ciudad where Nombre_ciudad='"+cmbCiudad.getSelectedItem()+"';")[0][0];
-        ciu = index2;
-        tel = txtTelefono.getText();
-        control_cliente contr = new control_cliente(doc, tipo, nom, ape, dir, ciu,tel);
-        if(!doc.equals("") && !tipo.equals("") && !nom.equals("") && !ape.equals("") )
+        if((txtContrasenia.getText().equals(txtConfirmarContrasenia.getText()))&&(txtContrasenia.getText().matches("[a-zA-Z0-9_-]+{6,20}")))
         {
-        if(contr.ingresar_cliente())
-        {
-        JOptionPane.showMessageDialog(null,"El cliente se registro con exito ","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-        limpiar();
-        bloquearCajas();
+            String doc,nom,ape,dir,ciu,tipo,tel, contraseña;
+        
+            String index1, index2;
+            String[] columna= {"id_tipo_documento"};
+            index1 = (String)controlExistencias.getSentencia().GetTabla(columna, "tipo_de_documento", "select id_tipo_documento from tipo_de_documento where Descripcion='"+cmbTipoDocumento.getSelectedItem()+"';")[0][0];
+
+            doc = txtDocumento.getText();
+            tipo= index1;
+            nom = txtNombres.getText();
+            ape = txtApellidos.getText();
+            dir = txtDireccion.getText();
+            contraseña = txtContrasenia.getText();
+
+            String[] columna1 = {"Codigo_ciudad"};
+            index2 = (String)controlExistencias.getSentencia().GetTabla(columna1, "ciudad", "select Codigo_ciudad from ciudad where Nombre_ciudad='"+cmbCiudad.getSelectedItem()+"';")[0][0];
+            ciu = index2;
+            tel = txtTelefono.getText();
+            control_cliente contr = new control_cliente(doc, tipo, nom, ape, dir, ciu,tel, contraseña);
+            if(!doc.equals("") && !tipo.equals("") && !nom.equals("") && !ape.equals("") )
+            {
+                if(contr.ingresar_cliente())
+                {
+                    JOptionPane.showMessageDialog(null,"El cliente se registro con exito ","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
+                    bloquearCajas();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Error al registrar el cliente");
+                }
+            }
+            else
+            {
+              JOptionPane.showMessageDialog(this, "Hay campos obligatorios");  
+            }
         }
         else
         {
-        JOptionPane.showMessageDialog(this, "Error al registrar el cliente");
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden o no cumplen con los requisitos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        }
-        else
-        {
-          JOptionPane.showMessageDialog(this, "Hay campos obligatorios");  
-        }
+        
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -300,23 +313,71 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
     private void btnEditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegistroActionPerformed
         // TODO add your handling code here:
         
+        String doc,nom,ape,dir,ciu,tipo,tel, contrasenia;
+        if((txtContrasenia.getText().equals(txtConfirmarContrasenia.getText()))&&(txtContrasenia.getText().matches("[a-zA-Z0-9]+{6,20}")))
+        {
+            if((!txtApellidos.getText().isEmpty())&&(!txtNombres.getText().isEmpty())&&(!txtDireccion.getText().isEmpty()))
+            {
+                doc = txtDocumento.getText();
+                nom = txtNombres.getText();
+                ape = txtApellidos.getText();
+                dir = txtDireccion.getText();
+                ciu = cmbCiudad.getSelectedItem().toString();
+                tipo = cmbTipoDocumento.getSelectedItem().toString();
+                tel = txtTelefono.getText();
+                contrasenia = txtContrasenia.getText();
+                control_cliente ctrlCliente = new control_cliente(doc, tipo, nom, ape, dir, ciu, tel, contrasenia);
+                if(ctrlCliente.actualizar_cliente())
+                {
+                    JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente", "Proceso exitoso", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Error al actualizar información de usuario","Error", JOptionPane.ERROR_MESSAGE );
+                }
+                String[] colName = {"Documento", "cod_tipo_documento", "Nombres", "Apellidos", "Direccion", "cod_ciudad", "Telefono", "Contraseña"};
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "NO ha ingresado todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnEditarRegistroActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        desbloquearCajas();
+        btnRegistrar.setEnabled(false);
         if(txtDocumento.getText().equals(""))
         {
             JOptionPane.showMessageDialog(null, "No ha ingresado un documento", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else
         {
-            String tipoDocumento, ciudad;
-            String[] colName = {"Documento", "cod_tipo_documento", "Nombres", "Apellidos", "Direccion", "cod_ciudad", "Telefono"};
-            Object[][] GetTabla = controlExistencias.getSentencia().GetTabla(colName, "cliente", "select * from cliente where Documento='"+txtDocumento.getText()+"'");
-            txtNombres.setText(GetTabla[0][2].toString());
-            txtApellidos.setText(GetTabla[0][3].toString());
-            txtDireccion.setText(GetTabla[0][4].toString());
-            txtTelefono.setText(GetTabla[0][6].toString());
+                btnEditarRegistro.setEnabled(true);
+                String tipoDocumento, ciudad;
+                String[] colName = {"Documento", "cod_tipo_documento", "Nombres", "Apellidos", "Direccion", "cod_ciudad", "Telefono", "Contraseña"};
+                Object[][] GetTabla = controlExistencias.getSentencia().GetTabla(colName, "cliente", "select * from cliente where Documento='"+txtDocumento.getText()+"'");
+                txtNombres.setText(GetTabla[0][2].toString());
+                txtApellidos.setText(GetTabla[0][3].toString());
+                txtDireccion.setText(GetTabla[0][4].toString());
+                txtTelefono.setText(GetTabla[0][6].toString());
+                txtContrasenia.setText(GetTabla[0][7].toString());
+                txtConfirmarContrasenia.setText(GetTabla[0][7].toString());
+
+                String[] colTipo = {"Descripcion"};
+                Object[][] tipo_Documento = controlExistencias.getSentencia().GetTabla(colTipo, "tipo_de_documento", "select Descripcion from tipo_de_documento where id_tipo_documento='"+GetTabla[0][1]+"'");
+                cmbTipoDocumento.setSelectedItem(tipo_Documento);
+
+                String[] colCiudad = {"Nombre_ciudad"};
+                Object[][] nombreCiudad = controlExistencias.getSentencia().GetTabla(colCiudad, "ciudad", "select Nombre_ciudad from ciudad where codigo_ciudad='"+GetTabla[0][5]+"'");
+                cmbCiudad.setSelectedItem(tipo_Documento);
+            
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
     
@@ -361,6 +422,8 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
         txtTelefono.setText("");
         cmbCiudad.setSelectedIndex(0);
         cmbTipoDocumento.setSelectedIndex(0);
+        txtContrasenia.setText("");
+        txtConfirmarContrasenia.setText("");
         
     }
     
@@ -411,8 +474,8 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTipoDocumento;
     private javax.swing.JTextField txtApellidos;
-    private javax.swing.JTextField txtConfirmarContrasenia;
-    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JPasswordField txtConfirmarContrasenia;
+    private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombres;

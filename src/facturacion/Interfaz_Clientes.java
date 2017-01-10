@@ -264,17 +264,18 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
         String[] columna= {"id_tipo_documento"};
         index1 = (String)controlExistencias.getSentencia().GetTabla(columna, "tipo_de_documento", "select id_tipo_documento from tipo_de_documento where Descripcion='"+combo_tipo.getSelectedItem()+"';")[0][0];
         
-        doc = docclientejTextField1.getText();;
+        doc = docclientejTextField1.getText();
         tipo= index1;
         nom = nomclientejTextField2.getText();
         ape = apellclientejTextField3.getText();
         dir = dirclientejTextField4.getText();
+        String contra = "a";
         
         String[] columna1 = {"Codigo_ciudad"};
         index2 = (String)controlExistencias.getSentencia().GetTabla(columna1, "ciudad", "select Codigo_ciudad from ciudad where Nombre_ciudad='"+ciudad_combo.getSelectedItem()+"';")[0][0];
         ciu = index2;
         tel = telefonoclientjTextField1.getText();
-        control_cliente contr = new control_cliente(doc, tipo, nom, ape, dir, ciu,tel);
+        control_cliente contr = new control_cliente(doc, tipo, nom, ape, dir, ciu,tel, contra);
         if(!doc.equals("") && !tipo.equals("") && !nom.equals("") && !ape.equals("") )
         {
         if(contr.ingresar_cliente())
