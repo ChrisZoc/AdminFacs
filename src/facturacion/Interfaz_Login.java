@@ -21,7 +21,8 @@ public class Interfaz_Login extends JFrame {
 	private JPasswordField contrasenatxt;
 	public static UsuarioLogeado userloged;
 	public Interfaz_Login() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 360, 210);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,6 +61,8 @@ public class Interfaz_Login extends JFrame {
 				      userloged.setPass(clavedef);
 				      userloged.setUsuario(cedulatxt.getText());
 				      new Interfaz_tipoFacturaAIngresar().setVisible(true);
+				     
+				      
 
 				      }else {
 	                    JOptionPane.showMessageDialog(null, "Acceso denegado:\n"
@@ -70,5 +73,6 @@ public class Interfaz_Login extends JFrame {
 		});
 		btnIngresar.setBounds(157, 131, 100, 25);
 		contentPane.add(btnIngresar);
+		
 	}
 }

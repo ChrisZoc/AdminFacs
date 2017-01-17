@@ -26,9 +26,10 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 	private JPanel contentPane;
 	String cedula=userloged.getUsuario();
 	String nombre=obtenerNombre(cedula);
+	boolean Admin=isAdmin(cedula);
 	public Interfaz_tipoFacturaAIngresar() {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,7 +65,7 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 		contentPane.add(lblUsuario);
 		
 		JLabel lblBienvenido = new JLabel("Bienvenido");
-		lblBienvenido.setBounds(172, 22, 102, 15);
+		lblBienvenido.setBounds(172, 22, 200, 15);
 		contentPane.add(lblBienvenido);
 		lblUsuario.setText(nombre);
 		
@@ -78,7 +79,7 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 		btnRegistroDeProveedores.setBounds(32, 174, 187, 25);
 		contentPane.add(btnRegistroDeProveedores);
 		
-		JButton btnGastosPersonales = new JButton("Gastos personales");
+		JButton btnGastosPersonales = new JButton("Registrar gasto personal");
 		btnGastosPersonales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new GastosPersonalesRegistro().setVisible(true);
@@ -86,6 +87,22 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 		});
 		btnGastosPersonales.setBounds(231, 174, 187, 25);
 		contentPane.add(btnGastosPersonales);
+		
+		JButton btnRegistrarNuevoGasto = new JButton("Registrar gasto personal");
+		btnRegistrarNuevoGasto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnRegistrarNuevoGasto.setBounds(125, 233, 209, 25);
+		contentPane.add(btnRegistrarNuevoGasto);
+		if(Admin){
+			btnGastosPersonales.setVisible(true);
+			btnRegistrarNuevoGasto.setVisible(true);
+			lblBienvenido.setText("Bienvenido Administrador");
+		}else{
+			btnGastosPersonales.setVisible(false);
+			btnRegistrarNuevoGasto.setVisible(false);
+		}
 
 	}
 	private String obtenerNombre(String cedula2) {
@@ -133,6 +150,56 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 
 	    }
 	return resultado;
+
+	}
+	private boolean isAdmin(String cedula2) {
+
+	    String resultado="";
+	    
+	    String SSQL="SELECT Administrador FROM cliente WHERE documento='"+cedula2+"';";
+	    System.out.println(SSQL);
+	    Connection conect = null;
+	    
+
+	    try {
+	    	conect=DriverManager.getConnection("jdbc:mysql://localhost/facturacioninterfaces","root","");
+	        if (conect!=null){
+	           System.out.println("Conexión para isadmin completa");
+	        }
+	        Statement st = conect.createStatement();
+	        ResultSet rs = st.executeQuery(SSQL);
+	        
+	        if(rs.next()){
+
+	            resultado = rs.getString("Administrador");
+		            
+	            System.out.println(resultado);
+	        }
+
+	    } catch (SQLException ex) {
+
+	        JOptionPane.showMessageDialog(null, ex, "Error de conexión", JOptionPane.ERROR_MESSAGE);
+
+	    }finally{
+
+
+	        try {
+
+	            conect.close();
+	            System.out.println("conexion de isadmin cerrada");
+
+	        } catch (SQLException ex) {
+
+	            JOptionPane.showMessageDialog(null, ex, "Error de desconexión", JOptionPane.ERROR_MESSAGE);
+
+	        }
+
+	    }
+	    if(resultado.equals("0")){
+        	return false;
+        }else{
+        	return true;
+        	}
 
 	}
 }

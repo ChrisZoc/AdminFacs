@@ -52,7 +52,7 @@ public class seleccion extends JFrame {
 	 */
 	public seleccion() {
 		setTitle("Organizador de Facturas");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 474, 261);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,7 +75,7 @@ public class seleccion extends JFrame {
 				System.out.println("MySQL JDBC Driver Registered!");
 				
 				try {
-					connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebafacturas","root", "");
+					connection = DriverManager.getConnection("jdbc:mysql://localhost/pruebafacturas","root", "");
 
 				} catch (SQLException e) {
 					System.out.println("Connection Failed! Check output console");

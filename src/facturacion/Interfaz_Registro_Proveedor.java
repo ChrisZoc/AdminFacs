@@ -49,7 +49,7 @@ control_existencias controlExistencias = new control_existencias();
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {
-
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -630,6 +630,7 @@ control_existencias controlExistencias = new control_existencias();
         
         String index2;
         docu = documentoproveedorjTextField9.getText();
+        if(ValidarCedula(docu)){
         tipo = "4";
         nom_com = nomcomercialjTextField10.getText();
         nom = nomproveedorjTextField9.getText();
@@ -660,11 +661,55 @@ control_existencias controlExistencias = new control_existencias();
         {
             JOptionPane.showMessageDialog(this, "Llene todos los campos");  
         }
-        
-       
+    }else{JOptionPane.showMessageDialog(null, "El RUC no es válido");}      
     }//GEN-LAST:event_regproveedorjButton9ActionPerformed
 
-    private void nuevoregjButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoregjButton7ActionPerformed
+    private boolean ValidarCedula(String cedula) {
+    	final int NUM_PROVINCIAS = 24;
+    		boolean isValid = false;
+    		if (cedula == null || cedula.length() != 10) {
+    			isValid = false;
+    		}
+    		final int prov = Integer.parseInt(cedula.substring(0, 2));
+     
+    		if (!((prov > 0) && (prov <= NUM_PROVINCIAS))) {
+    			isValid = false;
+    		}
+     
+    		int[] d = new int[10];
+    		for (int i = 0; i < d.length; i++) {
+    			d[i] = Integer.parseInt(cedula.charAt(i) + "");
+    		}
+     
+    		int imp = 0;
+    		int par = 0;
+     
+    		for (int i = 0; i < d.length; i += 2) { 			d[i] = ((d[i] * 2) > 9) ? ((d[i] * 2) - 9) : (d[i] * 2);
+    			imp += d[i];
+    		}
+     
+    		for (int i = 1; i < (d.length - 1); i += 2) {
+    			par += d[i];
+    		}
+     
+    		final int suma = imp + par;
+     
+    		int d10 = Integer.parseInt(String.valueOf(suma + 10).substring(0, 1)
+    				+ "0")
+    				- suma;
+     
+    		d10 = (d10 == 10) ? 0 : d10;
+     
+    		if (d10 == d[9]) {
+    			isValid = true;
+    		} else {
+    			isValid = false;
+    		}
+     
+    		return isValid;
+	}
+
+	private void nuevoregjButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoregjButton7ActionPerformed
     desbloquear();
     documentoproveedorjTextField9.requestFocus();
     }//GEN-LAST:event_nuevoregjButton7ActionPerformed

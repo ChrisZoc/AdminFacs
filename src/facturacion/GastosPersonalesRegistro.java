@@ -1,5 +1,6 @@
 package facturacion;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +29,7 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         lblTipoGasto = new javax.swing.JLabel();
         lblLimiteGasto = new javax.swing.JLabel();
         txtLimiteGasto = new javax.swing.JTextField();

@@ -36,7 +36,7 @@ public class Registrar_factura extends JFrame {
 	private JTextField txtTotal;
 	public Registrar_factura() throws ParseException {
 		control_existencias controlExistencias = new control_existencias();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
