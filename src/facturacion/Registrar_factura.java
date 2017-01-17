@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.geom.Area;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,14 +29,17 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 
-public class Registrar_factura extends JFrame {
+public class Registrar_factura extends Interfaz_Login{
 
 	private JPanel contentPane;
 	Sentencias_sql sensql = new Sentencias_sql();
+	String cedula=userloged.getUsuario();
 	private JTextField txtRuc;
 	private JTextField txtValor;
 	private JTextField ivatxt;
 	private JTextField txtTotal;
+    private Connection connection = null;
+    private java.sql.ResultSet res;
 	public Registrar_factura() throws ParseException {
 		control_existencias controlExistencias = new control_existencias();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -138,13 +144,12 @@ public class Registrar_factura extends JFrame {
 				comboProove.setEnabled(false);
 				txtnumFac.setEnabled(false);
 				fechaFactura.setEnabled(false);
+				TipoGasto.add((String) combGasto.getSelectedItem());
 				valor.add(txtValor.getText());
 				TipoGasto.add((String) combGasto.getSelectedItem());
 				Areatxt.append((String) combGasto.getSelectedItem()+", "+txtValor.getText()+"\n");
+				
 				}
-				
-				
-				
 			}
 		});
 		btnGuardar.setBounds(347, 208, 189, 25);
@@ -174,24 +179,69 @@ public class Registrar_factura extends JFrame {
 		JButton btnNewButton = new JButton("Finalizar Registro");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				combGasto.setEnabled(false);
-				txtValor.setEnabled(false);
-				Areatxt.setEnabled(false);
-				btnGuardar.setEnabled(false);
-				ivatxt.setEnabled(false);
-				int total=0;
+				
+				if(ivatxt.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Ingrese el Iva de la factura");
+					
+				}else{
+					combGasto.setEnabled(false);
+					txtValor.setEnabled(false);
+					Areatxt.setEnabled(false);
+					btnGuardar.setEnabled(false);
+					ivatxt.setEnabled(false);
+				double total=0;
 				for (int i = 0; i < valor.size(); i++) {
-					total += Integer.parseInt(valor.get(i));
+					
+					guardarEnBase(TipoGasto.get(i),valor.get(i),cedula);
+					//total += Integer.parseInt(valor.get(i).replace(",", "."));
 				}
-				double totalFinal=((double) total)*((double) Integer.parseInt((ivatxt.getText()))/100);
-				System.out.println(totalFinal);
-				txtTotal.setText(String.valueOf(totalFinal));
-				guardarEnBase();
+				//guardarEnBase("IVA",ivatxt.getText(),cedula);
+				JOptionPane.showMessageDialog(null, "Se ingreso correctamente los gastos");
+				}
+				}
 
+			private void guardarEnBase(String tipoGasto, String valor, String cedula) {
+				conectar();
+				tipoGasto=tipoGasto.toLowerCase();
+				valor = valor.replace(",", ".");
+				String consulta="UPDATE gasto_personal SET "+tipoGasto+" = "+tipoGasto+" + "+valor+" WHERE codigo_cliente="+"'"+cedula+"'";
+				try {
+					
+					System.out.println(consulta);
+					connection.createStatement().execute(consulta);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
-			private void guardarEnBase() {
-JOptionPane.showMessageDialog(null, "El registro se realizo con éxito");
+			private void conectar() {
+				try {
+					Class.forName("com.mysql.jdbc.Driver");
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+					return;
+				}				
+				try {
+					connection = DriverManager.getConnection("jdbc:mysql://localhost/facturacioninterfaces","root", "");
+
+				} catch (SQLException e) {
+					System.out.println("Connection Failed! Check output console");
+					e.printStackTrace();
+					return;
+				}
+
+				if (connection != null) {
+					System.out.println("You made it, take control your database now!");
+								} else {
+					System.out.println("Failed to make connection!");
+				}				
 			}
 		});
 		btnNewButton.setBounds(236, 365, 153, 25);
