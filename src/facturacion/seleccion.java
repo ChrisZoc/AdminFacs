@@ -70,10 +70,7 @@ public class seleccion extends JFrame {
 					System.out.println("Where is your MySQL JDBC Driver?");
 					e.printStackTrace();
 					return;
-				}
-
-				System.out.println("MySQL JDBC Driver Registered!");
-				
+				}				
 				try {
 					connection = DriverManager.getConnection("jdbc:mysql://localhost/pruebafacturas","root", "");
 
@@ -106,11 +103,11 @@ public class seleccion extends JFrame {
 				String cadena=textField.getText();
 				cadena = cadena.replace('\\', '/');
 				System.out.println(cadena);
-				primero= "LOAD XML LOCAL INFILE '"+cadena + "' INTO TABLE infotributaria ROWS IDENTIFIED BY '<infoTributaria>';";
-			    segundo="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE infoFactura ROWS IDENTIFIED BY '<infoFactura>';";
+				primero= "LOAD XML LOCAL INFILE '"+cadena + "' INTO TABLE infotributaria ROWS IDENTIFIED BY '<infotributaria>';";
+			    segundo="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE infofactura ROWS IDENTIFIED BY '<infofactura>';";
 			    tercero="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE detalle ROWS IDENTIFIED BY '<detalle>';";
 			    cuarto="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE impuesto ROWS IDENTIFIED BY '<impuesto>';";
-			    quinto="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE infoAdicional ROWS IDENTIFIED BY '<infoAdicional>';";
+			    quinto="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE infoadicional ROWS IDENTIFIED BY '<infoadicional>';";
 			}
 		});
 		button.setBounds(170, 118, 117, 22);
@@ -137,7 +134,6 @@ public class seleccion extends JFrame {
 				System.out.println(primero);
 				try {
 					connection.createStatement().execute(primero);
-				
 					connection.createStatement().execute(tercero);
 					connection.createStatement().execute(cuarto);
 					connection.createStatement().execute(quinto);
@@ -163,11 +159,9 @@ public class seleccion extends JFrame {
 			
 
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
-				
-				
 				
 			}
 		});
