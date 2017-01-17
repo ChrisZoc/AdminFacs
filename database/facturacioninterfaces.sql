@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2016 at 10:58 PM
+-- Generation Time: Jan 17, 2017 at 11:48 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.5.38
 
@@ -101,53 +101,56 @@ CREATE TABLE `cliente` (
   `Apellidos` varchar(30) NOT NULL,
   `Direccion` varchar(20) DEFAULT NULL,
   `cod_ciudad` int(11) NOT NULL,
-  `Telefono` varchar(20) DEFAULT NULL
+  `Telefono` varchar(20) DEFAULT NULL,
+  `Contrasenia` varchar(20) DEFAULT NULL,
+  `Administrador` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cliente`
 --
 
-INSERT INTO `cliente` (`Documento`, `cod_tipo_documento`, `Nombres`, `Apellidos`, `Direccion`, `cod_ciudad`, `Telefono`) VALUES
-('000031', 1, 'Carlos', 'Perez', 'Carrera 23 N 34-34', 1, '3127654323'),
-('000032', 1, 'dfdfff', 'ffff', 'fffff', 1, '77777'),
-('0001', 1, 'Camilo', 'Lopez', 'Calle 23 N 12-43', 2, '8239578'),
-('0002', 2, 'Maria', 'Arango', 'Carrera 5 N 23-12', 1, '8253478'),
-('0003', 1, 'Andres', 'Florez', 'Carrera 23 N 12A 34', 4, '3127654323'),
-('0004', 1, 'Carlos', 'Marin', 'Calle 3 N 98_21', 10, '8345623'),
-('0005', 1, 'Elvira', 'Orozco', 'Centro', 15, '3219843543'),
-('0006', 1, 'Kevin', 'Ayala', 'Carrera 23 N 4B 23', 1, '8354624'),
-('0007', 1, 'Angela', 'Hoyos', 'Calle 4 N 23 34', 3, '3217654300'),
-('0008', 2, 'Marcela', 'Gomez', 'Centro', 6, NULL),
-('0009', 1, 'Andres', 'Orozco', 'Calle 34 N 89 00', 1, '8219876'),
-('0010', 1, 'Marlon', 'Diaz', 'Carrera 23 N 78-00', 9, '3219870987'),
-('0011', 1, 'Daniela', 'Ceron', 'Centro', 1, '8236543'),
-('0012', 2, 'Camilo', 'Orozco', 'Calle 21 N 23-98', 10, '3119874534'),
-('0013', 1, 'Daniela', 'Ramos', 'Centro', 2, '3217653400'),
-('0014', 2, 'Camilo', 'Samboni', 'Carrera 23 N45A 12', 6, '8204587'),
-('0015', 1, 'Alexander', 'Romero', 'Calle 34 N 23 B 12', 2, '8340976'),
-('0016', 1, 'Sebastian', 'Naranjo', 'Carrera 23 N 2 A 1', 1, '8320912'),
-('0017', 2, 'Sandra', 'Castillo', 'Centro', 3, '3218769988'),
-('0018', 1, 'Nicolas', 'Ospina', 'Calle 23- N 76', 1, '8230954'),
-('0019', 1, 'Santiago', 'Sanchez', 'Carrera 23 N 12-23', 1, '8236521'),
-('0020', 1, 'Aleja', 'Dorado', 'Calle 34 N 23 B 4', 2, '8453234'),
-('0021', 2, 'andrea', 'Ruiz', 'Centro', 1, '3238765456'),
-('0022', 1, 'Andres', 'Perdomo', 'Centro', 3, '8456342'),
-('0023', 1, 'Dolly', 'Joaqui', 'Calle 3 N 34-12', 1, '8230943'),
-('0024', 2, 'Kevin', 'Rivera', 'Centro', 1, '8342309'),
-('0025', 1, 'Camila', 'Maya', 'Carrera 23 n 65-4', 1, '3150987866'),
-('0026', 1, 'Camilo', 'Coral', 'Centro', 1, NULL),
-('0027', 2, 'Carlos', 'Paz', 'Centro', 1, NULL),
-('0028', 1, 'Cristian', 'Paz', 'Calle 34 N b34', 1, '3219870045'),
-('0029', 1, 'Daniela', 'Solarte', 'Centro', 1, '8345623'),
-('0030', 1, 'Diana', 'Aponte', 'Centro', 15, '8234522'),
-('1032', 2, 'andres', 'juan', 'calle 34-23', 2, '326589'),
-('12', 1, 'kerly andrea', 'samboni bolaños', 'los cimuneros', 1, '3113882177'),
-('120', 1, 'andres', 'sanchez', 'carere 12-45', 2, '8202565'),
-('123', 2, 'carlos', 'andres', 'calle 23.5', 2, '235645'),
-('125', 2, 'andres', 'sanchez', 'calle 23', 2, '12545'),
-('1718927716', 1, 'Aída Alexandra', 'Granda Cárdenas', 'Ulloa y Selva Alegre', 1, '0999601084'),
-('4115', 2, 'hhhhhhhh', 'hhhhhhhhhh', 'hhhhhhhhhhh', 1, 'hhhhhhhhh');
+INSERT INTO `cliente` (`Documento`, `cod_tipo_documento`, `Nombres`, `Apellidos`, `Direccion`, `cod_ciudad`, `Telefono`, `Contrasenia`, `Administrador`) VALUES
+('0001', 1, 'Camilo', 'Lopez', 'Calle 23 N 12-43', 2, '8239578', '', 0),
+('0002', 2, 'Maria', 'Arango', 'Carrera 5 N 23-12', 1, '8253478', '', 0),
+('0003', 1, 'Andres', 'Florez', 'Carrera 23 N 12A 34', 4, '3127654323', '', 0),
+('0004', 1, 'Carlos', 'Marin', 'Calle 3 N 98_21', 10, '8345623', '', 0),
+('0005', 1, 'Elvira', 'Orozco', 'Centro', 15, '3219843543', '', 0),
+('0006', 1, 'Kevin', 'Ayala', 'Carrera 23 N 4B 23', 1, '8354624', '', 0),
+('0008', 2, 'Marcela', 'Gomez', 'Centro', 6, NULL, '', 0),
+('0009', 1, 'Andres', 'Orozco', 'Calle 34 N 89 00', 1, '8219876', '', 0),
+('0010', 1, 'Marlon', 'Diaz', 'Carrera 23 N 78-00', 9, '3219870987', '', 0),
+('0011', 1, 'Daniela', 'Ceron', 'Centro', 1, '8236543', '', 0),
+('0012', 2, 'Camilo', 'Orozco', 'Calle 21 N 23-98', 10, '3119874534', '', 0),
+('0013', 1, 'Daniela', 'Ramos', 'Centro', 2, '3217653400', '', 0),
+('0014', 2, 'Camilo', 'Samboni', 'Carrera 23 N45A 12', 6, '8204587', '', 0),
+('0015', 1, 'Alexander', 'Romero', 'Calle 34 N 23 B 12', 2, '8340976', '', 0),
+('0016', 1, 'Sebastian', 'Naranjo', 'Carrera 23 N 2 A 1', 1, '8320912', '', 0),
+('0017', 2, 'Sandra', 'Castillo', 'Centro', 3, '3218769988', '', 0),
+('0018', 1, 'Nicolas', 'Ospina', 'Calle 23- N 76', 1, '8230954', '', 0),
+('0019', 1, 'Santiago', 'Sanchez', 'Carrera 23 N 12-23', 1, '8236521', '', 0),
+('0020', 1, 'Aleja', 'Dorado', 'Calle 34 N 23 B 4', 2, '8453234', '', 0),
+('0021', 2, 'andrea', 'Ruiz', 'Centro', 1, '3238765456', '', 0),
+('0022', 1, 'Andres', 'Perdomo', 'Centro', 3, '8456342', '', 0),
+('0023', 1, 'Dolly', 'Joaqui', 'Calle 3 N 34-12', 1, '8230943', '', 0),
+('0024', 2, 'Kevin', 'Rivera', 'Centro', 1, '8342309', '', 0),
+('0025', 1, 'Camila', 'Maya', 'Carrera 23 n 65-4', 1, '3150987866', '', 0),
+('0026', 1, 'Camilo', 'Coral', 'Centro', 1, NULL, '', 0),
+('0027', 2, 'Carlos', 'Paz', 'Centro', 1, NULL, '', 0),
+('0028', 1, 'Cristian', 'Paz', 'Calle 34 N b34', 1, '3219870045', '', 0),
+('0029', 1, 'Daniela', 'Solarte', 'Centro', 1, '8345623', '', 0),
+('0030', 1, 'Diana', 'Aponte', 'Centro', 15, '8234522', '', 0),
+('0400779286', 1, 'Aída ', 'Cárdenas', 'Ulloa y Selva ALegre', 1, '2904187', '', 0),
+('0400779287', 1, 'Randy', 'Granda', 'Ulloa', 1, '2904187', 'lala123_', 0),
+('1000982882', 1, 'Luis', 'Orquera', 'Isla Marchena', 1, '2438011', 'Miguel-1', 0),
+('1032', 2, 'andres', 'juan', 'calle 34-23', 2, '326589', '', 0),
+('12', 1, 'kerly andrea', 'samboni bolaños', 'los cimuneros', 1, '3113882177', '', 0),
+('120', 1, 'andres', 'sanchez', 'carere 12-45', 2, '8202565', '', 0),
+('123', 2, 'carlos', 'andres', 'calle 23.5', 2, '235645', '', 0),
+('125', 2, 'andres', 'sanchez', 'calle 23', 2, '12545', '', 0),
+('1707392252', 1, 'Randy ', 'Granda', 'Ulloa', 1, '2904187', 'lala123', 0),
+('1718927716', 1, 'Aída Alexandra', 'Granda Cárdenas', 'Ulloa y Selva Alegre', 1, '0999601084', 'Lala123', 0),
+('4115', 2, 'hhhhhhhh', 'hhhhhhhhhh', 'hhhhhhhhhhh', 1, 'hhhhhhhhh', '', 0);
 
 -- --------------------------------------------------------
 
@@ -245,6 +248,30 @@ INSERT INTO `forma_de_pago` (`id_formapago`, `Descripcion_formapago`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gasto_personal`
+--
+
+CREATE TABLE `gasto_personal` (
+  `id_gasto` int(11) NOT NULL,
+  `codigo_cliente` varchar(15) NOT NULL,
+  `anio` int(11) NOT NULL,
+  `alimentacion` decimal(10,3) NOT NULL,
+  `vestimenta` decimal(10,3) NOT NULL,
+  `salud` decimal(10,3) NOT NULL,
+  `educacion` decimal(10,3) NOT NULL,
+  `vivienda` decimal(10,3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gasto_personal`
+--
+
+INSERT INTO `gasto_personal` (`id_gasto`, `codigo_cliente`, `anio`, `alimentacion`, `vestimenta`, `salud`, `educacion`, `vivienda`) VALUES
+(1, '1718927716', 2016, '0.000', '0.000', '0.000', '0.000', '0.000');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `proveedor`
 --
 
@@ -317,6 +344,29 @@ INSERT INTO `tipo_de_documento` (`id_tipo_documento`, `Descripcion`) VALUES
 (6, 'CE'),
 (7, 'RUT');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tipo_gasto_personal`
+--
+
+CREATE TABLE `tipo_gasto_personal` (
+  `id_tipo_gasto` int(11) NOT NULL,
+  `tipo_gasto` varchar(50) NOT NULL,
+  `limite_gasto` decimal(10,3) NOT NULL,
+  `Anio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tipo_gasto_personal`
+--
+
+INSERT INTO `tipo_gasto_personal` (`id_tipo_gasto`, `tipo_gasto`, `limite_gasto`, `Anio`) VALUES
+(1, 'Alimentación', '3630.000', 0),
+(2, 'Vestimenta', '3630.000', 0),
+(3, 'Salud', '14521.000', 2017),
+(4, 'Educacion', '380.250', 2016);
+
 --
 -- Indexes for dumped tables
 --
@@ -374,6 +424,12 @@ ALTER TABLE `forma_de_pago`
   ADD PRIMARY KEY (`id_formapago`);
 
 --
+-- Indexes for table `gasto_personal`
+--
+ALTER TABLE `gasto_personal`
+  ADD PRIMARY KEY (`id_gasto`);
+
+--
 -- Indexes for table `proveedor`
 --
 ALTER TABLE `proveedor`
@@ -392,6 +448,12 @@ ALTER TABLE `tipo_articulo`
 --
 ALTER TABLE `tipo_de_documento`
   ADD PRIMARY KEY (`id_tipo_documento`);
+
+--
+-- Indexes for table `tipo_gasto_personal`
+--
+ALTER TABLE `tipo_gasto_personal`
+  ADD PRIMARY KEY (`id_tipo_gasto`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -413,6 +475,11 @@ ALTER TABLE `ciudad`
 ALTER TABLE `forma_de_pago`
   MODIFY `id_formapago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `gasto_personal`
+--
+ALTER TABLE `gasto_personal`
+  MODIFY `id_gasto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `tipo_articulo`
 --
 ALTER TABLE `tipo_articulo`
@@ -422,6 +489,11 @@ ALTER TABLE `tipo_articulo`
 --
 ALTER TABLE `tipo_de_documento`
   MODIFY `id_tipo_documento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `tipo_gasto_personal`
+--
+ALTER TABLE `tipo_gasto_personal`
+  MODIFY `id_tipo_gasto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
