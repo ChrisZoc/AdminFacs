@@ -12,20 +12,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Rainy
  */
-public class GastosPersonalesEdicion extends javax.swing.JFrame {
+public class GastosPersonalesEdicion extends Interfaz_Login {
 
     /**
      * Creates new form GastosPersonalesEdicion
      */
     
     control_existencias controlExistencias = new control_existencias();
-    String id_usuario="1718927716";
+    String cedula=userloged.getUsuario();
     DefaultTableModel datos;
     public GastosPersonalesEdicion() {
         initComponents();
         btnEditar.setEnabled(false);
         String[] colName = {"id_gasto", "codigo_cliente", "anio", "alimentacion", "vestimenta", "salud", "educacion", "vivienda"};
-        Object[][] tabla =controlExistencias.getSentencia().GetTabla(colName, "gasto_personal", "Select * from gasto_personal where codigo_cliente='"+id_usuario+"'");        
+        Object[][] tabla =controlExistencias.getSentencia().GetTabla(colName, "gasto_personal", "Select * from gasto_personal where codigo_cliente='"+cedula+"'");        
         datos = new DefaultTableModel(tabla, colName);
         tblGastosUsuario.setModel(datos);
         btnEditar.setEnabled(false);
@@ -216,7 +216,7 @@ public class GastosPersonalesEdicion extends javax.swing.JFrame {
             
             String[] datos = {anio, alimentacion, vestimenta, salud, educacion, vivienda};
             
-            boolean update =controlExistencias.getSentencia().actualizar(datos, "update gasto_personal set anio = ?, alimentacion =?, vestimenta=?, salud =?, educacion=?, vivienda=? where codigo_cliente='"+id_usuario+"'");
+            boolean update =controlExistencias.getSentencia().actualizar(datos, "update gasto_personal set anio = ?, alimentacion =?, vestimenta=?, salud =?, educacion=?, vivienda=? where codigo_cliente='"+cedula+"'");
             if(update)
             {
                 JOptionPane.showMessageDialog(null, "Se han actualizado los datos con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
