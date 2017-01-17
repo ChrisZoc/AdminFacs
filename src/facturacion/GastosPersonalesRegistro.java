@@ -1,6 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package facturacion;
 
-import javax.swing.JFrame;
+import javax.naming.LimitExceededException;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,26 +34,26 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         lblTipoGasto = new javax.swing.JLabel();
-        lblLimiteGasto = new javax.swing.JLabel();
-        txtLimiteGasto = new javax.swing.JTextField();
-        lblAcumulado = new javax.swing.JLabel();
-        txtAcumulado = new javax.swing.JTextField();
+        lblFraccionBasicaDesgravada = new javax.swing.JLabel();
+        txtFraccionDesgravada = new javax.swing.JTextField();
+        lblSalarioBasico = new javax.swing.JLabel();
+        txtSalarioBasico = new javax.swing.JTextField();
         lblAnio = new javax.swing.JLabel();
         txtAnio = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnIngresar = new javax.swing.JButton();
-        txtTipoGasto = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
+        cmbTipoGasto = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTipoGasto.setText("Tipo Gasto");
 
-        lblLimiteGasto.setText("Límite gasto");
+        lblFraccionBasicaDesgravada.setText("Fracción Básica Desgravada");
 
-        lblAcumulado.setText("Acumulado a la fecha");
+        lblSalarioBasico.setText("Salario Básico Anual");
 
         lblAnio.setText("Año");
 
@@ -79,6 +84,8 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
             }
         });
 
+        cmbTipoGasto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alimentacion", "Vestimenta", "Salud", "Educacion", "Vivienda" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,14 +100,14 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtTipoGasto, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtAnio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                         .addComponent(lblAnio, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtAcumulado, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblAcumulado, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtLimiteGasto, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblLimiteGasto, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblTipoGasto, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(txtSalarioBasico, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblSalarioBasico, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtFraccionDesgravada, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblFraccionBasicaDesgravada, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTipoGasto, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(cmbTipoGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(341, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,15 +116,15 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(lblTipoGasto)
                 .addGap(18, 18, 18)
-                .addComponent(txtTipoGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbTipoGasto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(lblFraccionBasicaDesgravada)
                 .addGap(18, 18, 18)
-                .addComponent(lblLimiteGasto)
+                .addComponent(txtFraccionDesgravada, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtLimiteGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblSalarioBasico)
                 .addGap(18, 18, 18)
-                .addComponent(lblAcumulado)
-                .addGap(18, 18, 18)
-                .addComponent(txtAcumulado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSalarioBasico, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblAnio)
                 .addGap(18, 18, 18)
@@ -145,17 +152,28 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        if((!txtTipoGasto.getText().isEmpty())&&(!txtLimiteGasto.getText().isEmpty())&&(!txtAcumulado.getText().isEmpty())&&(!txtAnio.getText().isEmpty()))
+        if((!(cmbTipoGasto.getSelectedIndex()==-1))&&(!txtFraccionDesgravada.getText().isEmpty())&&(!txtSalarioBasico.getText().isEmpty())&&(!txtAnio.getText().isEmpty()))
         {
-            String tipo, limite, acumulado, anio;
-            tipo = txtTipoGasto.getText();
-            limite = txtLimiteGasto.getText();
-            acumulado = txtAcumulado.getText();
+            String tipoGasto,  anio;
+            double fraccion, salarioBasico;
+            tipoGasto = cmbTipoGasto.getSelectedItem().toString();
+            fraccion = Double.parseDouble(txtFraccionDesgravada.getText());
+            salarioBasico = Double.parseDouble(txtSalarioBasico.getText());
             anio = txtAnio.getText();
-            double diferencia = Double.parseDouble(limite) - Double.parseDouble(acumulado);
-            String dif = Double.toString(diferencia);
-            String datos[] = {tipo, limite, acumulado, dif, anio};
-            boolean insertar = control.getSentencia().insertar(datos, "insert into gastos_personales(tipo_gasto, limite_gasto, acumulado_a_fecha, diferencia, Anio) values (?,?,?,?,?)");
+            
+            double limite;
+            
+            if(tipoGasto.equals("Alimentacion")|| tipoGasto.equals("Vestimenta")||tipoGasto.equals("Educacion")||tipoGasto.equals("Vivienda"))
+            {
+                limite = fraccion*0.325;
+            }
+            else
+            {
+                limite = fraccion*1.3;
+            }
+            String limiteGasto = Double.toString(limite);
+            String datos[] = {tipoGasto, limiteGasto, anio};
+            boolean insertar = control.getSentencia().insertar(datos, "insert into tipo_gasto_personal(tipo_gasto, limite_gasto, Anio) values (?,?,?)");
             if(insertar)
             {
                 JOptionPane.showMessageDialog(null, "Se ha insertado el gasto exitosamente", "Proceso exitoso", JOptionPane.INFORMATION_MESSAGE);
@@ -182,25 +200,25 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
     
     public void limpiar()
     {
-        txtTipoGasto.setText("");
-        txtLimiteGasto.setText("");
-        txtAcumulado.setText("");
+        cmbTipoGasto.setSelectedItem(-1);
+        txtFraccionDesgravada.setText("");
+        txtSalarioBasico.setText("");
         txtAnio.setText("");
     }
     
     public void bloquearCajas()
     {
-        txtTipoGasto.setEnabled(false);
-        txtLimiteGasto.setEnabled(false);
-        txtAcumulado.setEnabled(false);
+        cmbTipoGasto.setEnabled(false);
+        txtFraccionDesgravada.setEnabled(false);
+        txtSalarioBasico.setEnabled(false);
         txtAnio.setEnabled(false);
     }
     
     public void desbloquearCajas()
     {
-        txtTipoGasto.setEnabled(true);
-        txtLimiteGasto.setEnabled(true);
-        txtAcumulado.setEnabled(true);
+        cmbTipoGasto.setEnabled(true);
+        txtFraccionDesgravada.setEnabled(true);
+        txtSalarioBasico.setEnabled(true);
         txtAnio.setEnabled(true);
     }
     /**
@@ -243,13 +261,13 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JLabel lblAcumulado;
+    private javax.swing.JComboBox cmbTipoGasto;
     private javax.swing.JLabel lblAnio;
-    private javax.swing.JLabel lblLimiteGasto;
+    private javax.swing.JLabel lblFraccionBasicaDesgravada;
+    private javax.swing.JLabel lblSalarioBasico;
     private javax.swing.JLabel lblTipoGasto;
-    private javax.swing.JTextField txtAcumulado;
     private javax.swing.JTextField txtAnio;
-    private javax.swing.JTextField txtLimiteGasto;
-    private javax.swing.JTextField txtTipoGasto;
+    private javax.swing.JTextField txtFraccionDesgravada;
+    private javax.swing.JTextField txtSalarioBasico;
     // End of variables declaration//GEN-END:variables
 }
