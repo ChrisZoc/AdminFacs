@@ -179,6 +179,7 @@ public class GastosPersonalesRegistro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se ha insertado el gasto exitosamente", "Proceso exitoso", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
                 bloquearCajas();
+                btnIngresar.setEnabled(false);
             }
             else
             {
