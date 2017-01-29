@@ -103,7 +103,7 @@ public class seleccion extends JFrame {
 				String cadena=textField.getText();
 				cadena = cadena.replace('\\', '/');
 				System.out.println(cadena);
-				primero= "LOAD XML LOCAL INFILE '"+cadena + "' INTO TABLE infotributaria ROWS IDENTIFIED BY '<infotributaria>';";
+				primero= "LOAD XML LOCAL INFILE '"+cadena+ "' INTO TABLE infotributaria ROWS IDENTIFIED BY '<infotributaria>';";
 			    segundo="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE infofactura ROWS IDENTIFIED BY '<infofactura>';";
 			    tercero="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE detalle ROWS IDENTIFIED BY '<detalle>';";
 			    cuarto="LOAD XML LOCAL INFILE '"+cadena+"' INTO TABLE impuesto ROWS IDENTIFIED BY '<impuesto>';";
