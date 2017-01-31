@@ -1,13 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package facturacion;
 
-/**
- *
- * @author elaprendiz http://www.youtube.com/user/JleoD7
- */
+
 public class Persona {
     
     
@@ -18,6 +11,15 @@ public class Persona {
     protected String direccion;
     protected String ciudad;
     protected String telefono;
+    protected String contrasenia;
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
 
     public String getTelefono() {
         return telefono;
@@ -28,7 +30,7 @@ public class Persona {
     }
     
     
-    public Persona(String documento, String tipo, String nombres, String apellidos, String direccion, String ciudad,String telefono) {
+    public Persona(String documento, String tipo, String nombres, String apellidos, String direccion, String ciudad,String telefono, String contrasenia) {
         this.documento = documento;
         this.tipo = tipo;
         this.nombres = nombres;
@@ -36,6 +38,7 @@ public class Persona {
         this.direccion = direccion;       
         this.ciudad = ciudad;
         this.telefono=telefono;
+        this.contrasenia= contrasenia;
     }
     
     public String getDocumento() {

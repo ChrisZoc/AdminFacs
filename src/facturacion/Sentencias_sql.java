@@ -1,7 +1,5 @@
-
 package facturacion;
 
-//import com.sun.crypto.provider.RSACipher;
 import java.awt.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,10 +7,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author elaprendiz http://www.youtube.com/user/JleoD7
- */
 public class Sentencias_sql {
     
     private conexion conexion;
@@ -27,6 +21,22 @@ public class Sentencias_sql {
       boolean estado = false;
        try {
             pstatement = conexion.conectado().prepareStatement(insert);
+            for(int i=0; i<=datos.length-1;i++){
+                pstatement.setString(i+1, datos[i]);
+            }
+            pstatement.execute();
+            pstatement.close();
+            estado = true;
+         }catch(SQLException e){
+         System.out.println(e);
+      }
+       return estado;
+   }
+    
+    public boolean actualizar(String datos[], String update){
+      boolean estado = false;
+       try {
+            pstatement = conexion.conectado().prepareStatement(update);
             for(int i=0; i<=datos.length-1;i++){
                 pstatement.setString(i+1, datos[i]);
             }
@@ -154,6 +164,4 @@ public class Sentencias_sql {
         
      
      
-     }
-    
-
+}

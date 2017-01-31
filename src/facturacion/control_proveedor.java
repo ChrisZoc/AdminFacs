@@ -1,20 +1,31 @@
-
 package facturacion;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author elaprendiz http://www.youtube.com/user/JleoD7
- */
-public class control_proveedor extends Persona {
+public class control_proveedor {
     
 private String Nombre_comercial;
 Sentencias_sql sql;
+private String documento;
+private String tipo;
+private String nombres;
+private String apellidos;
+private String direccion;
+private String ciudad;
+private String telefono;
+
+
 
     public control_proveedor(String documento, String tipo, String nombres, String apellidos, String Nombre_comercial, String direccion, String ciudad,String telefono)
-    { 
-        super(documento, tipo, nombres, apellidos, direccion, ciudad, telefono);
+    {
+        
+        this.tipo = tipo;
+        this.telefono = telefono;
+        this.nombres = nombres;
+        this.documento = documento;
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.apellidos =apellidos;
         this.Nombre_comercial=Nombre_comercial;
         sql = new Sentencias_sql();
     }
