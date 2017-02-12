@@ -5,7 +5,18 @@
  */
 package facturacion;
 
+import com.mysql.jdbc.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -18,6 +29,10 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
      */
     
     control_existencias controlExistencias = new control_existencias();
+    private java.sql.Connection connection = null;
+    private java.sql.ResultSet res;
+    private String usuario = "1718927716";
+    private java.util.ArrayList<String> arreglodetalles = new ArrayList<>();
     public InterfazClasificacionFacturasXML() {
         initComponents();
         cmbDetallesFactura.setEnabled(false);
@@ -25,6 +40,20 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
         btnIngresarGastos.setEnabled(false);
         cmbDetallesFactura.removeAllItems();
         cmbTipoGasto.removeAllItems();
+        try {
+                    connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/pruebafacturas", "root", "");
+
+                } catch (SQLException e) {
+                    System.out.println("Connection Failed! Check output console");
+                    e.printStackTrace();
+                    return;
+                }
+
+                if (connection != null) {
+                    System.out.println("You made it, take control your database now!");
+                } else {
+                    System.out.println("Failed to make connection!");
+                }////conexi�n
     }
 
     /**
@@ -47,6 +76,7 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
         lblTipoGasto = new javax.swing.JLabel();
         cmbDetallesFactura = new javax.swing.JComboBox();
         cmbTipoGasto = new javax.swing.JComboBox();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,6 +108,14 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
 
         cmbTipoGasto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnSalir.setText("Salir");
+        btnSalir.setToolTipText("");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,12 +129,15 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
                     .addComponent(cmbDetallesFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnIngresarGastos)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnIngresarGastos)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalir))
                     .addComponent(rbtGastosPersonales)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(cmbTipoGasto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTipoGasto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +157,8 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIngresarGastos)
-                    .addComponent(btnNuevaFactura))
+                    .addComponent(btnNuevaFactura)
+                    .addComponent(btnSalir))
                 .addGap(42, 42, 42))
         );
 
@@ -127,6 +169,26 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(grpTipoFactura.getSelection().isSelected())
         {
+            Date d= new Date();
+            Calendar c = new GregorianCalendar();
+            c.setTime(d);
+            try {
+                String formapago = "1";
+                res = connection.createStatement().executeQuery("select secuencial from infoTributaria where id=(select max(id) from infoTributaria)");
+                String codigoFactura = res.getString("secuencial");
+                res = connection.createStatement().executeQuery("select totalSinImpuestos from infoTributaria where id = (select max(id) from infoTributaria)");
+                String totalFactura = res.getString("totalSinImpuestos");
+                res = connection.createStatement().executeQuery("select totalDescuento from infoTributaria where id = (select max(id) from infoTributaria)");
+                String IVA = res.getString("totalDescuento");
+                String dia = Integer.toString(c.get(Calendar.DATE));
+                String mes = Integer.toString(c.get(Calendar.MONTH));
+                String anio = Integer.toString(c.get(Calendar.YEAR));
+                String fecha = dia+"/"+mes+"/"+anio;
+                String datos[] ={codigoFactura,usuario,"Desconocido", fecha, formapago, totalFactura, IVA};
+                controlExistencias.getSentencia().insertar(datos, "insert into factura (Nmn_factura,cod_cliente, Nombre_empleado, Fecha_facturacion, cod_formapago, total_factura, IVA) values (?,?,?,?,?,?,?)");
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if(rbtGastosNegocio.isSelected())
             {
                 cmbDetallesFactura.setEnabled(true);
@@ -134,27 +196,90 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
                 Object[] tipo_doc = controlExistencias.combox("tipo_gasto_negocio","descripcion_tipo_gasto_negocio");
                 for(int i=0;i<tipo_doc.length;i++)
                     cmbTipoGasto.addItem(tipo_doc[i]);
+                
+                cmbTipoGasto.setSelectedIndex(-1);
+                try {
+                    res = connection.createStatement().executeQuery("select descripcion from detalle");
+                    while(res.next())
+                    {
+                        cmbDetallesFactura.addItem(res.getString("descripcion"));
+                        //arreglodetalles.add(res.getString("descripcion"));
+                    }
+                    cmbDetallesFactura.setSelectedIndex(-1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
             }
             else if(rbtGastosPersonales.isSelected())
             {
+               cmbDetallesFactura.setEnabled(true);
+               cmbTipoGasto.setEnabled(true);
                cmbTipoGasto.addItem("Alimentación");
                cmbTipoGasto.addItem("Vestimenta");
                cmbTipoGasto.addItem("Salud");
                cmbTipoGasto.addItem("Educación");
                cmbTipoGasto.addItem("Vivienda");
                cmbTipoGasto.addItem("Otros");
+               cmbTipoGasto.setSelectedIndex(-1);
+               
+               try {
+                    res = connection.createStatement().executeQuery("select descripcion from detalle");
+                    while(res.next())
+                    {
+                        cmbDetallesFactura.addItem(res.getString("descripcion"));
+                        arreglodetalles.add(res.getString("descripcion"));
+                    }
+                    cmbDetallesFactura.setSelectedIndex(-1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
+                }
                
             }
             else
             {
                 JOptionPane.showMessageDialog(null, "No ha seleccionado el tipo de factura","Error", JOptionPane.ERROR_MESSAGE);
+                
             }
         }
     }//GEN-LAST:event_btnNuevaFacturaActionPerformed
-
+    
+    public void limpiarBaseTransitoria() {
+        try {
+            String vaciarTablaInfoFactura = "Delete from infoFactura";
+            String vaciarTablaInfoTributaria = "Delete from infoTributaria";
+            String vaciarTablaInfoAdicional = "Delete from infoAdicional";
+            String vaciarDetalle = "Delete from detalle";
+            String vaciarImpuesto = "Delete from impuesto";
+            
+            connection.createStatement().execute(vaciarDetalle);
+            connection.createStatement().execute(vaciarImpuesto);
+            connection.createStatement().execute(vaciarTablaInfoAdicional);
+            connection.createStatement().execute(vaciarTablaInfoFactura);
+            connection.createStatement().execute(vaciarTablaInfoTributaria);
+        } catch (SQLException ex) {
+            Logger.getLogger(seleccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void btnIngresarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarGastosActionPerformed
         // TODO add your handling code here:
+        if((cmbDetallesFactura.getSelectedIndex()==-1)||(cmbTipoGasto.getSelectedIndex()==-1))
+        {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningún elemento");
+        }
+        else
+        {
+            
+        }
     }//GEN-LAST:event_btnIngresarGastosActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        limpiarBaseTransitoria();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     public void limpiarCajas()
     {
@@ -202,6 +327,7 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresarGastos;
     private javax.swing.JButton btnNuevaFactura;
+    private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox cmbDetallesFactura;
