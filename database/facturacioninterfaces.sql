@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 17, 2017 at 11:48 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.5.38
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 13-02-2017 a las 22:24:47
+-- Versión del servidor: 5.7.14
+-- Versión de PHP: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `facturacioninterfaces`
+-- Base de datos: `facturacioninterfaces`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `articulo`
+-- Estructura de tabla para la tabla `articulo`
 --
 
 CREATE TABLE `articulo` (
@@ -37,7 +37,7 @@ CREATE TABLE `articulo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `articulo`
+-- Volcado de datos para la tabla `articulo`
 --
 
 INSERT INTO `articulo` (`id_articulo`, `descripcion`, `precio_venta`, `stock`, `cod_tipo_articulo`, `cod_proveedor`, `fecha_ingreso`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `articulo` (`id_articulo`, `descripcion`, `precio_venta`, `stock`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ciudad`
+-- Estructura de tabla para la tabla `ciudad`
 --
 
 CREATE TABLE `ciudad` (
@@ -63,7 +63,7 @@ CREATE TABLE `ciudad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ciudad`
+-- Volcado de datos para la tabla `ciudad`
 --
 
 INSERT INTO `ciudad` (`Codigo_ciudad`, `Nombre_ciudad`) VALUES
@@ -91,7 +91,7 @@ INSERT INTO `ciudad` (`Codigo_ciudad`, `Nombre_ciudad`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cliente`
+-- Estructura de tabla para la tabla `cliente`
 --
 
 CREATE TABLE `cliente` (
@@ -103,11 +103,11 @@ CREATE TABLE `cliente` (
   `cod_ciudad` int(11) NOT NULL,
   `Telefono` varchar(20) DEFAULT NULL,
   `Contrasenia` varchar(20) DEFAULT NULL,
-  `Administrador` tinyint(1) NOT NULL
+  `Administrador` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `cliente`
+-- Volcado de datos para la tabla `cliente`
 --
 
 INSERT INTO `cliente` (`Documento`, `cod_tipo_documento`, `Nombres`, `Apellidos`, `Direccion`, `cod_ciudad`, `Telefono`, `Contrasenia`, `Administrador`) VALUES
@@ -149,13 +149,15 @@ INSERT INTO `cliente` (`Documento`, `cod_tipo_documento`, `Nombres`, `Apellidos`
 ('123', 2, 'carlos', 'andres', 'calle 23.5', 2, '235645', '', 0),
 ('125', 2, 'andres', 'sanchez', 'calle 23', 2, '12545', '', 0),
 ('1707392252', 1, 'Randy ', 'Granda', 'Ulloa', 1, '2904187', 'lala123', 0),
+('1717216616', 1, 'Jaime Gustavo', 'Yerovi Usiña', 'san carlos', 1, '2535917', 'Jaime-123', 0),
 ('1718927716', 1, 'Aída Alexandra', 'Granda Cárdenas', 'Ulloa y Selva Alegre', 1, '0999601084', 'Lala123', 0),
+('1725453102', 1, 'Christian', 'Oña', 'La comun', 1, '0981097376', 'david', 1),
 ('4115', 2, 'hhhhhhhh', 'hhhhhhhhhh', 'hhhhhhhhhhh', 1, 'hhhhhhhhh', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detalle_factura`
+-- Estructura de tabla para la tabla `detalle_factura`
 --
 
 CREATE TABLE `detalle_factura` (
@@ -166,7 +168,7 @@ CREATE TABLE `detalle_factura` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `detalle_factura`
+-- Volcado de datos para la tabla `detalle_factura`
 --
 
 INSERT INTO `detalle_factura` (`cod_factura`, `cod_articulo`, `cantidad`, `total`) VALUES
@@ -178,7 +180,7 @@ INSERT INTO `detalle_factura` (`cod_factura`, `cod_articulo`, `cantidad`, `total
 -- --------------------------------------------------------
 
 --
--- Table structure for table `devolucion`
+-- Estructura de tabla para la tabla `devolucion`
 --
 
 CREATE TABLE `devolucion` (
@@ -190,7 +192,7 @@ CREATE TABLE `devolucion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `devolucion`
+-- Volcado de datos para la tabla `devolucion`
 --
 
 INSERT INTO `devolucion` (`cod_detallefactura`, `cod_detallearticulo`, `Motivo`, `Fecha_devolucion`, `cantidad`) VALUES
@@ -199,35 +201,69 @@ INSERT INTO `devolucion` (`cod_detallefactura`, `cod_detallearticulo`, `Motivo`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `factura`
+-- Estructura de tabla para la tabla `factura`
 --
 
 CREATE TABLE `factura` (
   `Nnm_factura` varchar(20) NOT NULL,
   `cod_cliente` varchar(15) NOT NULL,
   `Nombre_empleado` varchar(30) NOT NULL,
-  `Fecha_facturacion` varchar(15) NOT NULL,
+  `Fecha_facturacion` date NOT NULL,
   `cod_formapago` int(11) NOT NULL,
   `total_factura` decimal(10,0) DEFAULT NULL,
   `IVA` decimal(10,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `factura`
+-- Volcado de datos para la tabla `factura`
 --
 
 INSERT INTO `factura` (`Nnm_factura`, `cod_cliente`, `Nombre_empleado`, `Fecha_facturacion`, `cod_formapago`, `total_factura`, `IVA`) VALUES
-('FACT-6676810', '1718927716', 'Estilos', '20/12/2016', 1, NULL, NULL),
-('FACT-679688', '1718927716', 'Estilos', '20/12/2016', 1, '0', '0'),
-('FACT-69910910', '1718927716', 'Fashion', '20/12/2016', 1, NULL, NULL),
-('FACT-986889', '1718927716', 'Estilos', '20/12/2016', 3, NULL, NULL),
-('FACT-9910966', '125', 'jose', '22/1/2013', 1, '437500', '70000'),
-('FACT-998769', '1718927716', 'Estilos', '20/12/2016', 1, '360000', '57600');
+('11111111111111111', '0001', 'david', '2017-02-13', 1, '200', '90'),
+('33-33-333333333', '1725453102', 'Estilos', '2017-02-13', 1, '160', '23'),
+('44-44-444444444', '1725453102', 'Sports', '2017-02-13', 1, '108', '23'),
+('FACT-6676810', '1718927716', 'Estilos', '2016-01-01', 1, NULL, NULL),
+('FACT-679688', '1718927716', 'Estilos', '2016-01-01', 1, '0', '0'),
+('FACT-69910910', '1718927716', 'Fashion', '2016-01-01', 1, NULL, NULL),
+('FACT-986889', '1718927716', 'Estilos', '2016-01-01', 3, NULL, NULL),
+('FACT-9910966', '125', 'jose', '2016-01-01', 1, '437500', '70000'),
+('FACT-998769', '1718927716', 'Estilos', '2016-01-01', 1, '360000', '57600');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `forma_de_pago`
+-- Estructura de tabla para la tabla `facturapersonal`
+--
+
+CREATE TABLE `facturapersonal` (
+  `Nnm_factura` varchar(20) NOT NULL,
+  `cod_cliente` varchar(15) NOT NULL,
+  `Nombre_empleado` varchar(30) NOT NULL,
+  `Fecha_facturacion` date NOT NULL,
+  `cod_formapago` int(11) NOT NULL,
+  `total_factura` double NOT NULL,
+  `IVA` double NOT NULL,
+  `alimentacion` double NOT NULL DEFAULT '0',
+  `salud` double NOT NULL DEFAULT '0',
+  `educacion` double NOT NULL DEFAULT '0',
+  `vestimenta` double NOT NULL DEFAULT '0',
+  `vivienda` double NOT NULL DEFAULT '0',
+  `otros` double NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `facturapersonal`
+--
+
+INSERT INTO `facturapersonal` (`Nnm_factura`, `cod_cliente`, `Nombre_empleado`, `Fecha_facturacion`, `cod_formapago`, `total_factura`, `IVA`, `alimentacion`, `salud`, `educacion`, `vestimenta`, `vivienda`, `otros`) VALUES
+('11-11-111111111', '1725453102', 'Bellas', '2017-02-13', 1, 127, 45, 49, 0, 26, 26, 26, 0),
+('44-44-444444444', '1725453102', 'Fashion', '2017-03-14', 1, 272, 56, 34, 34, 0, 34, 170, 0),
+('33-33-333333333', '1725453102', 'jeans&&jeans', '2017-09-14', 1, 136, 35, 34, 68, 0, 34, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `forma_de_pago`
 --
 
 CREATE TABLE `forma_de_pago` (
@@ -236,7 +272,7 @@ CREATE TABLE `forma_de_pago` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `forma_de_pago`
+-- Volcado de datos para la tabla `forma_de_pago`
 --
 
 INSERT INTO `forma_de_pago` (`id_formapago`, `Descripcion_formapago`) VALUES
@@ -248,7 +284,28 @@ INSERT INTO `forma_de_pago` (`id_formapago`, `Descripcion_formapago`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gasto_personal`
+-- Estructura de tabla para la tabla `gasto_negocio`
+--
+
+CREATE TABLE `gasto_negocio` (
+  `id_gasto_negocio` int(11) NOT NULL,
+  `codigo_cliente` varchar(15) NOT NULL,
+  `tipo_gasto` int(11) NOT NULL,
+  `cantidad` decimal(10,3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `gasto_negocio`
+--
+
+INSERT INTO `gasto_negocio` (`id_gasto_negocio`, `codigo_cliente`, `tipo_gasto`, `cantidad`) VALUES
+(1, '1725453102', 1, '5.050'),
+(2, '1718927716', 1, '8.650');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gasto_personal`
 --
 
 CREATE TABLE `gasto_personal` (
@@ -263,16 +320,17 @@ CREATE TABLE `gasto_personal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `gasto_personal`
+-- Volcado de datos para la tabla `gasto_personal`
 --
 
 INSERT INTO `gasto_personal` (`id_gasto`, `codigo_cliente`, `anio`, `alimentacion`, `vestimenta`, `salud`, `educacion`, `vivienda`) VALUES
-(1, '1718927716', 2016, '0.000', '0.000', '0.000', '0.000', '0.000');
+(1, '1718927716', 2016, '0.000', '0.000', '0.000', '0.000', '0.000'),
+(2, '1725453102', 2017, '1219.000', '529.000', '493.000', '1062.000', '516.000');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proveedor`
+-- Estructura de tabla para la tabla `proveedor`
 --
 
 CREATE TABLE `proveedor` (
@@ -287,7 +345,7 @@ CREATE TABLE `proveedor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `proveedor`
+-- Volcado de datos para la tabla `proveedor`
 --
 
 INSERT INTO `proveedor` (`No_documento`, `cod_tipo_documento`, `Nombre`, `Apellido`, `Nombre_comercial`, `direccion`, `cod_ciudad`, `Telefono`) VALUES
@@ -301,7 +359,7 @@ INSERT INTO `proveedor` (`No_documento`, `cod_tipo_documento`, `Nombre`, `Apelli
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_articulo`
+-- Estructura de tabla para la tabla `tipo_articulo`
 --
 
 CREATE TABLE `tipo_articulo` (
@@ -310,20 +368,20 @@ CREATE TABLE `tipo_articulo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tipo_articulo`
+-- Volcado de datos para la tabla `tipo_articulo`
 --
 
 INSERT INTO `tipo_articulo` (`id_tipoarticulo`, `descripcion_articulo`) VALUES
-(19, 'ALIMENTO'),
-(20, 'VESTIMENTA'),
-(21, 'MEDICINA'),
-(22, 'EDUCACION'),
-(23, 'OTROS');
+(19, 'alimentacion'),
+(20, 'vestimenta'),
+(21, 'salud'),
+(22, 'educacion'),
+(23, 'vivienda');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_de_documento`
+-- Estructura de tabla para la tabla `tipo_de_documento`
 --
 
 CREATE TABLE `tipo_de_documento` (
@@ -332,7 +390,7 @@ CREATE TABLE `tipo_de_documento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tipo_de_documento`
+-- Volcado de datos para la tabla `tipo_de_documento`
 --
 
 INSERT INTO `tipo_de_documento` (`id_tipo_documento`, `Descripcion`) VALUES
@@ -347,7 +405,26 @@ INSERT INTO `tipo_de_documento` (`id_tipo_documento`, `Descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_gasto_personal`
+-- Estructura de tabla para la tabla `tipo_gasto_negocio`
+--
+
+CREATE TABLE `tipo_gasto_negocio` (
+  `id_tipo_gasto_negocio` int(11) NOT NULL,
+  `descripcion_tipo_gasto_negocio` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipo_gasto_negocio`
+--
+
+INSERT INTO `tipo_gasto_negocio` (`id_tipo_gasto_negocio`, `descripcion_tipo_gasto_negocio`) VALUES
+(1, 'Sueldo'),
+(2, 'Viaticos');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_gasto_personal`
 --
 
 CREATE TABLE `tipo_gasto_personal` (
@@ -358,21 +435,22 @@ CREATE TABLE `tipo_gasto_personal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tipo_gasto_personal`
+-- Volcado de datos para la tabla `tipo_gasto_personal`
 --
 
 INSERT INTO `tipo_gasto_personal` (`id_tipo_gasto`, `tipo_gasto`, `limite_gasto`, `Anio`) VALUES
-(1, 'Alimentación', '3630.000', 0),
-(2, 'Vestimenta', '3630.000', 0),
+(1, 'Alimentación', '3630.000', 2017),
+(2, 'Vestimenta', '3630.000', 2017),
 (3, 'Salud', '14521.000', 2017),
-(4, 'Educacion', '380.250', 2016);
+(4, 'Educacion', '3800.250', 2017),
+(5, 'vivienda', '1300.000', 2017);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `articulo`
+-- Indices de la tabla `articulo`
 --
 ALTER TABLE `articulo`
   ADD PRIMARY KEY (`id_articulo`),
@@ -380,13 +458,13 @@ ALTER TABLE `articulo`
   ADD KEY `ref_prov_art_idx` (`cod_proveedor`);
 
 --
--- Indexes for table `ciudad`
+-- Indices de la tabla `ciudad`
 --
 ALTER TABLE `ciudad`
   ADD PRIMARY KEY (`Codigo_ciudad`);
 
 --
--- Indexes for table `cliente`
+-- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`Documento`),
@@ -394,7 +472,7 @@ ALTER TABLE `cliente`
   ADD KEY `ref_ciudad_idx` (`cod_ciudad`);
 
 --
--- Indexes for table `detalle_factura`
+-- Indices de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
   ADD PRIMARY KEY (`cod_factura`,`cod_articulo`),
@@ -402,7 +480,7 @@ ALTER TABLE `detalle_factura`
   ADD KEY `ref_ar_fact_idx` (`cod_articulo`);
 
 --
--- Indexes for table `devolucion`
+-- Indices de la tabla `devolucion`
 --
 ALTER TABLE `devolucion`
   ADD PRIMARY KEY (`cod_detallefactura`,`cod_detallearticulo`),
@@ -410,7 +488,7 @@ ALTER TABLE `devolucion`
   ADD KEY `ref_deta_art_idx` (`cod_detallearticulo`);
 
 --
--- Indexes for table `factura`
+-- Indices de la tabla `factura`
 --
 ALTER TABLE `factura`
   ADD PRIMARY KEY (`Nnm_factura`),
@@ -418,19 +496,25 @@ ALTER TABLE `factura`
   ADD KEY `ref_formapago_idx` (`cod_formapago`);
 
 --
--- Indexes for table `forma_de_pago`
+-- Indices de la tabla `forma_de_pago`
 --
 ALTER TABLE `forma_de_pago`
   ADD PRIMARY KEY (`id_formapago`);
 
 --
--- Indexes for table `gasto_personal`
+-- Indices de la tabla `gasto_negocio`
+--
+ALTER TABLE `gasto_negocio`
+  ADD PRIMARY KEY (`id_gasto_negocio`);
+
+--
+-- Indices de la tabla `gasto_personal`
 --
 ALTER TABLE `gasto_personal`
   ADD PRIMARY KEY (`id_gasto`);
 
 --
--- Indexes for table `proveedor`
+-- Indices de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
   ADD PRIMARY KEY (`No_documento`),
@@ -438,103 +522,119 @@ ALTER TABLE `proveedor`
   ADD KEY `proveedor_ibfk_1` (`cod_tipo_documento`);
 
 --
--- Indexes for table `tipo_articulo`
+-- Indices de la tabla `tipo_articulo`
 --
 ALTER TABLE `tipo_articulo`
   ADD PRIMARY KEY (`id_tipoarticulo`);
 
 --
--- Indexes for table `tipo_de_documento`
+-- Indices de la tabla `tipo_de_documento`
 --
 ALTER TABLE `tipo_de_documento`
   ADD PRIMARY KEY (`id_tipo_documento`);
 
 --
--- Indexes for table `tipo_gasto_personal`
+-- Indices de la tabla `tipo_gasto_negocio`
+--
+ALTER TABLE `tipo_gasto_negocio`
+  ADD PRIMARY KEY (`id_tipo_gasto_negocio`);
+
+--
+-- Indices de la tabla `tipo_gasto_personal`
 --
 ALTER TABLE `tipo_gasto_personal`
   ADD PRIMARY KEY (`id_tipo_gasto`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `articulo`
+-- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
   MODIFY `id_articulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `ciudad`
+-- AUTO_INCREMENT de la tabla `ciudad`
 --
 ALTER TABLE `ciudad`
   MODIFY `Codigo_ciudad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
--- AUTO_INCREMENT for table `forma_de_pago`
+-- AUTO_INCREMENT de la tabla `forma_de_pago`
 --
 ALTER TABLE `forma_de_pago`
   MODIFY `id_formapago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `gasto_personal`
+-- AUTO_INCREMENT de la tabla `gasto_negocio`
+--
+ALTER TABLE `gasto_negocio`
+  MODIFY `id_gasto_negocio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `gasto_personal`
 --
 ALTER TABLE `gasto_personal`
-  MODIFY `id_gasto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_gasto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `tipo_articulo`
+-- AUTO_INCREMENT de la tabla `tipo_articulo`
 --
 ALTER TABLE `tipo_articulo`
   MODIFY `id_tipoarticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
--- AUTO_INCREMENT for table `tipo_de_documento`
+-- AUTO_INCREMENT de la tabla `tipo_de_documento`
 --
 ALTER TABLE `tipo_de_documento`
   MODIFY `id_tipo_documento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `tipo_gasto_personal`
+-- AUTO_INCREMENT de la tabla `tipo_gasto_negocio`
+--
+ALTER TABLE `tipo_gasto_negocio`
+  MODIFY `id_tipo_gasto_negocio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tipo_gasto_personal`
 --
 ALTER TABLE `tipo_gasto_personal`
-  MODIFY `id_tipo_gasto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_tipo_gasto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `articulo`
+-- Filtros para la tabla `articulo`
 --
 ALTER TABLE `articulo`
   ADD CONSTRAINT `ref_prov_art` FOREIGN KEY (`cod_proveedor`) REFERENCES `proveedor` (`No_documento`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ref_tipo_articulo` FOREIGN KEY (`cod_tipo_articulo`) REFERENCES `tipo_articulo` (`id_tipoarticulo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `cliente`
+-- Filtros para la tabla `cliente`
 --
 ALTER TABLE `cliente`
   ADD CONSTRAINT `ref_ciudad` FOREIGN KEY (`cod_ciudad`) REFERENCES `ciudad` (`Codigo_ciudad`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ref_tipo_doc` FOREIGN KEY (`cod_tipo_documento`) REFERENCES `tipo_de_documento` (`id_tipo_documento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `detalle_factura`
+-- Filtros para la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
   ADD CONSTRAINT `ref_ar_fact` FOREIGN KEY (`cod_articulo`) REFERENCES `articulo` (`id_articulo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ref_facturacion` FOREIGN KEY (`cod_factura`) REFERENCES `factura` (`Nnm_factura`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `devolucion`
+-- Filtros para la tabla `devolucion`
 --
 ALTER TABLE `devolucion`
   ADD CONSTRAINT `ref_deta_art` FOREIGN KEY (`cod_detallearticulo`) REFERENCES `detalle_factura` (`cod_articulo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ref_detallefactu` FOREIGN KEY (`cod_detallefactura`) REFERENCES `detalle_factura` (`cod_factura`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `factura`
+-- Filtros para la tabla `factura`
 --
 ALTER TABLE `factura`
   ADD CONSTRAINT `ref_cli` FOREIGN KEY (`cod_cliente`) REFERENCES `cliente` (`Documento`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ref_formapago` FOREIGN KEY (`cod_formapago`) REFERENCES `forma_de_pago` (`id_formapago`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `proveedor`
+-- Filtros para la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
   ADD CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`cod_tipo_documento`) REFERENCES `tipo_de_documento` (`id_tipo_documento`) ON DELETE CASCADE ON UPDATE CASCADE,
