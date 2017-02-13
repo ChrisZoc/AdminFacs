@@ -33,6 +33,7 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
     private java.sql.ResultSet res;
     private String usuario = "1718927716";
     private java.util.ArrayList<String> arreglodetalles = new ArrayList<>();
+    String codigoFactura = "";
     public InterfazClasificacionFacturasXML() {
         initComponents();
         cmbDetallesFactura.setEnabled(false);
@@ -50,7 +51,7 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
                 }
 
                 if (connection != null) {
-                    System.out.println("You made it, take control your database now!");
+                    System.out.println("Conexion a base provisional lista");
                 } else {
                     System.out.println("Failed to make connection!");
                 }////conexi�n
@@ -173,19 +174,30 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
             Calendar c = new GregorianCalendar();
             c.setTime(d);
             try {
+                String totalFactura = "";
+                String IVA = "";
                 String formapago = "1";
                 res = connection.createStatement().executeQuery("select secuencial from infoTributaria where id=(select max(id) from infoTributaria)");
-                String codigoFactura = res.getString("secuencial");
-                res = connection.createStatement().executeQuery("select totalSinImpuestos from infoTributaria where id = (select max(id) from infoTributaria)");
-                String totalFactura = res.getString("totalSinImpuestos");
-                res = connection.createStatement().executeQuery("select totalDescuento from infoTributaria where id = (select max(id) from infoTributaria)");
-                String IVA = res.getString("totalDescuento");
+                while(res.next())
+                {
+                    codigoFactura = res.getString("secuencial");
+                }
+                res = connection.createStatement().executeQuery("select totalSinImpuestos from infoFactura where ID_InfoFactura = (select max(ID_InfoFactura) from infoFactura)");
+                while(res.next())
+                {
+                    totalFactura = res.getString("totalSinImpuestos");
+                }
+                res = connection.createStatement().executeQuery("select totalDescuento from infoFactura where ID_InfoFactura = (select max(ID_InfoFactura) from infoFactura)");
+                while(res.next())
+                {
+                    IVA = res.getString("totalDescuento");
+                }
                 String dia = Integer.toString(c.get(Calendar.DATE));
                 String mes = Integer.toString(c.get(Calendar.MONTH));
                 String anio = Integer.toString(c.get(Calendar.YEAR));
                 String fecha = dia+"/"+mes+"/"+anio;
                 String datos[] ={codigoFactura,usuario,"Desconocido", fecha, formapago, totalFactura, IVA};
-                controlExistencias.getSentencia().insertar(datos, "insert into factura (Nmn_factura,cod_cliente, Nombre_empleado, Fecha_facturacion, cod_formapago, total_factura, IVA) values (?,?,?,?,?,?,?)");
+                controlExistencias.getSentencia().insertar(datos, "insert into factura (Nnm_factura,cod_cliente, Nombre_empleado, Fecha_facturacion, cod_formapago, total_factura, IVA) values (?,?,?,?,?,?,?)");
             } catch (SQLException ex) {
                 Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -271,14 +283,14 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
         }
         else
         {
-            
+            String detalle = (String)cmbDetallesFactura.getSelectedItem();
+            String tipoGasto = (String)cmbTipoGasto.getSelectedItem();
         }
     }//GEN-LAST:event_btnIngresarGastosActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        limpiarBaseTransitoria();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     public void limpiarCajas()
