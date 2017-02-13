@@ -57,6 +57,7 @@ public class Interfaz_Login extends JFrame {
 
 					 JOptionPane.showMessageDialog(null, "Bienvenido\n"+ "Has ingresado satisfactoriamente a"
 					 		+ "l sistema",  null,JOptionPane.INFORMATION_MESSAGE);
+                                      setVisible(false);
 				      userloged = new UsuarioLogeado();
 				      userloged.setPass(clavedef);
 				      userloged.setUsuario(cedulatxt.getText());

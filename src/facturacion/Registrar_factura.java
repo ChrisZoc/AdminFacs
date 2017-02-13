@@ -25,6 +25,10 @@ import javax.swing.JFormattedTextField;
 
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
@@ -95,7 +99,7 @@ public class Registrar_factura extends Interfaz_Login{
 		lblRuc.setBounds(297, 43, 53, 15);
 		contentPane.add(lblRuc);
 
-	    MaskFormatter mascara = new MaskFormatter("##-##-#########");
+                MaskFormatter mascara = new MaskFormatter("##-##-#########");
 		JFormattedTextField txtnumFac = new JFormattedTextField(mascara);
 		txtnumFac.setBounds(107, 74, 177, 24);
 		contentPane.add(txtnumFac);
@@ -144,13 +148,25 @@ public class Registrar_factura extends Interfaz_Login{
 				comboProove.setEnabled(false);
 				txtnumFac.setEnabled(false);
 				fechaFactura.setEnabled(false);
+                                if(isDouble(txtValor.getText())){
 				TipoGasto.add((String) combGasto.getSelectedItem());
 				valor.add(txtValor.getText());
-				TipoGasto.add((String) combGasto.getSelectedItem());
 				Areatxt.append((String) combGasto.getSelectedItem()+", "+txtValor.getText()+"\n");
-				
+                                }else{
+                                JOptionPane.showMessageDialog(null, "ingrese un numero valido con formato 00.00 o 00,00");
+                                }
 				}
 			}
+
+                    private boolean isDouble(String cadena) {
+                        cadena=cadena.replace(",", ".");
+                        try {
+		Double.parseDouble(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+                    }
 		});
 		btnGuardar.setBounds(347, 208, 189, 25);
 		contentPane.add(btnGuardar);
@@ -190,13 +206,38 @@ public class Registrar_factura extends Interfaz_Login{
 					btnGuardar.setEnabled(false);
 					ivatxt.setEnabled(false);
 				double total=0;
+                                double valorFinal=0;
+                                double alimentacion=0,salud=0,educacion=0,vestimenta=0,vivienda=0,otros=0;
 				for (int i = 0; i < valor.size(); i++) {
 					
 					guardarEnBase(TipoGasto.get(i),valor.get(i),cedula);
 					//total += Integer.parseInt(valor.get(i).replace(",", "."));
+                                        valorFinal += Double.parseDouble(valor.get(i).replace(",", "."));
+                                        if(TipoGasto.get(i).equals("alimentacion")){
+                                            alimentacion+=Double.parseDouble(valor.get(i).replace(",", "."));
+                                        }
+                                        if(TipoGasto.get(i).equals("salud")){
+                                            salud+=Double.parseDouble(valor.get(i).replace(",", "."));
+                                        }
+                                        if(TipoGasto.get(i).equals("educacion")){
+                                            educacion+=Double.parseDouble(valor.get(i).replace(",", "."));
+                                        }
+                                        if(TipoGasto.get(i).equals("vestimenta")){
+                                            vestimenta+=Double.parseDouble(valor.get(i).replace(",", "."));
+                                        }
+                                        if(TipoGasto.get(i).equals("vivienda")){
+                                            vivienda+=Double.parseDouble(valor.get(i).replace(",", "."));
+                                        }
+                                        
 				}
 				//guardarEnBase("IVA",ivatxt.getText(),cedula);
+                                txtTotal.setText(String.valueOf(valorFinal));
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                String date = sdf.format(fechaFactura.getDate());
+                               
+                                guardarFactura(alimentacion,salud,educacion,vestimenta,vivienda,otros,valorFinal,Double.parseDouble(ivatxt.getText().replace(",", ".")), date);
 				JOptionPane.showMessageDialog(null, "Se ingreso correctamente los gastos");
+                                btnNewButton.setEnabled(false);
 				}
 				}
 
@@ -243,9 +284,22 @@ public class Registrar_factura extends Interfaz_Login{
 					System.out.println("Failed to make connection!");
 				}				
 			}
+
+                    private void guardarFactura(double alimentacion, double salud, double educacion, double vestimenta, double vivienda,double otros, double valorFinal, double iva, String fecha) {
+                        conexion guardarFact=new conexion();
+                        Connection factura = guardarFact.conectado();
+                        String insert="INSERT INTO `facturaPersonal` (`Nnm_factura`, `cod_cliente`, `Nombre_empleado`, `Fecha_facturacion`, `cod_formapago`, `total_factura`, `IVA`,`alimentacion`, `salud`, `educacion`, `vestimenta`, `vivienda`, `otros`) VALUES ('"+txtnumFac.getText()+"','"+cedula+"','"+comboProove.getSelectedItem()+"','"+fecha+"','1','"+String.valueOf(valorFinal)+"','"+String.valueOf(iva)+"','"+alimentacion+"','"+salud+"','"+educacion+"','"+vestimenta+"','"+vivienda+"','"+otros+"')";    
+                        System.out.println(insert);
+                        try {
+                                factura.createStatement().execute(insert);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Registrar_factura.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                    }
 		});
 		btnNewButton.setBounds(236, 365, 153, 25);
 		contentPane.add(btnNewButton);
+                
 		
 		JLabel lblTipoDeGasto = new JLabel("Tipo de Gasto");
 		lblTipoDeGasto.setBounds(142, 128, 114, 15);

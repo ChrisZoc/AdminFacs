@@ -10,9 +10,12 @@ package facturacion;
  *
  * @author Rainy
  */
+import groovy.xml.Entity;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sf.jasperreports.ant.*;
@@ -24,7 +27,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.digester.*;
 
-public class InterfazReportes extends javax.swing.JFrame {
+public class InterfazReportes extends javax.swing.JFrame{
 
     /**
      * Creates new form InterfazReportes
@@ -44,8 +47,8 @@ public class InterfazReportes extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,32 +59,42 @@ public class InterfazReportes extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Datos de Facturas por Año");
+        jButton4.setText("Reporte Gastos Personales por Mes");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Datos de Facturas por Tipo");
+        jButton5.setText("Detalles de facturas de gastos personales");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5))
+                .addContainerGap(383, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(362, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,41 +102,66 @@ public class InterfazReportes extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-     
-        try {
-					Class.forName("com.mysql.jdbc.Driver");
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-					return;
-				}				
-				try {
-					connection = DriverManager.getConnection("jdbc:mysql://localhost/facturacioninterfaces","root", "");
-
-				} catch (SQLException e) {
-					System.out.println("Connection Failed! Check output console");
-					e.printStackTrace();
-					return;
-				}
-
-				if (connection != null) {
-					System.out.println("You made it, take control your database now!");
-								} else {
-					System.out.println("Failed to make connection!");
-				}
+        conexion conn= new conexion();
+        connection=conn.conectado();
         JasperDesign jasperDesign;
 	JasperReport jasperReport;
-        JasperPrint jasperPrint;
-        String dir="C:\\Users\\Rainy\\Documents\\GitHub\\AdminFacs\\src\\facturacion\\consultaGastosPersonales.jrxml";
+        JasperPrint jasperPrint;    
+        String current = "";
+        String usuario=Interfaz_Login.userloged.getUsuario();
+        System.out.println(usuario);
+        
         try {
-            JasperReport report = JasperCompileManager.compileReport(dir);
-            JasperPrint print = JasperFillManager.fillReport(report, null,connection);
+            current = new java.io.File( "." ).getCanonicalPath();
+            current+="\\src\\facturacion\\consultaGastosPersonales.jrxml";
+            System.out.println("Current dir:"+current);
+            HashMap parametros = new HashMap();
+            parametros.put("cedula",usuario);
+            JasperReport report = JasperCompileManager.compileReport(current);
+            JasperPrint print = JasperFillManager.fillReport(report, parametros,connection);
+            
  
             JasperViewer.viewReport(print);
 
         } catch (JRException ex) {
             Logger.getLogger(InterfazReportes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(InterfazReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        conexion conn= new conexion();
+        connection=conn.conectado();
+        JasperDesign jasperDesign;
+	JasperReport jasperReport;
+        JasperPrint jasperPrint;    
+        String current = "";
+        String usuario=Interfaz_Login.userloged.getUsuario();
+        System.out.println(usuario);
+        
+        try {
+            current = new java.io.File( "." ).getCanonicalPath();
+            current+="\\src\\facturacion\\consultaGastoPersonalMes.jrxml";
+            System.out.println("Current dir:"+current);
+            HashMap parametros = new HashMap();
+            parametros.put("cedula",usuario);
+            JasperReport report = JasperCompileManager.compileReport(current);
+            JasperPrint print = JasperFillManager.fillReport(report, parametros,connection);
+            
+ 
+            JasperViewer.viewReport(print);
+
+        } catch (JRException ex) {
+            Logger.getLogger(InterfazReportes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(InterfazReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        new parametrosReporte3().setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,7 +201,7 @@ public class InterfazReportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     // End of variables declaration//GEN-END:variables
 }

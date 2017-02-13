@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b5cbfca1-6a03-4f78-b806-c0aa162666d7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="32"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#0000CC"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#0000CC"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#0000CC"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#0000CC"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="LIMITEDEGASTO" uuid="72a10e44-7a23-46ef-8190-f9c33db4abbf">
+		<queryString language="SQL">
+			<![CDATA[SELECT LIMITE_GASTO FROM `tipo_gasto_personal`]]>
+		</queryString>
+		<field name="LIMITE_GASTO" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="cedula" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT ((select limite_gasto from tipo_gasto_personal where tipo_gasto='alimentacion')-gp.alimentacion) as alimentacion1, 
+((select limite_gasto from tipo_gasto_personal where tipo_gasto='vestimenta')-gp.vestimenta) as vestimenta1,
+((select limite_gasto from tipo_gasto_personal where tipo_gasto='salud')-gp.salud) as salud1,
+((select limite_gasto from tipo_gasto_personal where tipo_gasto='educacion')-gp.educacion) as educacion1 ,
+((select limite_gasto from tipo_gasto_personal where tipo_gasto='vivienda')-gp.vivienda) as vivienda1,salud,vestimenta,vivienda,educacion,alimentacion,anio,codigo_cliente
+FROM gasto_personal as gp where codigo_cliente=$P{cedula}]]>
+	</queryString>
+	<field name="alimentacion1" class="java.math.BigDecimal"/>
+	<field name="vestimenta1" class="java.math.BigDecimal"/>
+	<field name="salud1" class="java.math.BigDecimal"/>
+	<field name="educacion1" class="java.math.BigDecimal"/>
+	<field name="vivienda1" class="java.math.BigDecimal"/>
+	<field name="salud" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vestimenta" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vivienda" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="educacion" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="alimentacion" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="anio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigo_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="157" y="27" width="304" height="23" uuid="a87cb5ff-f263-4f9a-aef8-4552b172d638"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMEN DE GASTOS PERSONALES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="69" y="0" width="69" height="20" uuid="f5a421d6-b33d-4995-9e3b-c107c1c5b259"/>
+				<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="330" y="0" width="98" height="20" uuid="21da4f89-dd09-4f79-8b8c-5284417e57de"/>
+				<text><![CDATA[Cedula Usuario]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="0" width="85" height="20" uuid="bbba17d3-ece5-40a3-a41e-e5e732b121fa"/>
+				<textFieldExpression><![CDATA[$F{codigo_cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="69" height="20" uuid="6d8fd586-1cbf-4f2f-b667-41889ab9dfef"/>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="161" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="20" width="126" height="20" uuid="28105154-585a-43e4-8116-f37b6cbd00da"/>
+				<textFieldExpression><![CDATA[$F{alimentacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="60" width="126" height="20" uuid="89874a01-5c82-477c-a0ef-7c883b86cbdf"/>
+				<textFieldExpression><![CDATA[$F{vestimenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="80" width="126" height="20" uuid="9990d776-547d-4134-af68-16681ba62ebc"/>
+				<textFieldExpression><![CDATA[$F{salud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="100" width="126" height="20" uuid="90c0a314-b33a-4974-8c5b-9dade2ec3288"/>
+				<textFieldExpression><![CDATA[$F{educacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="2edb7c23-87aa-4e94-9ff5-1c3c6002e68d"/>
+				<text><![CDATA[alimentacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20" uuid="cd26baf3-20fd-4c20-bd43-942dee1f5c3d"/>
+				<text><![CDATA[vestimenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="ef41294e-26e6-4fce-9881-b3ff86f36e31"/>
+				<text><![CDATA[vivienda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="20" uuid="e78e25d7-119d-439c-bb1c-597e1829e1fc"/>
+				<text><![CDATA[salud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="100" height="20" uuid="6b7e2787-2af9-4785-b64c-a0f402d3082b"/>
+				<text><![CDATA[educacion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="40" width="126" height="20" uuid="84c1c69b-fb99-4235-a26e-cf3e2198f7cd"/>
+				<textFieldExpression><![CDATA[$F{vivienda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="620a7971-f3b3-45c6-a9c2-8d8f2124fc23"/>
+				<text><![CDATA[TIPO DE GASTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="126" height="20" uuid="11877ab3-f00e-4dbb-9f3d-fe35ac00c08c"/>
+				<text><![CDATA[GASTO ACUMULADO]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="226" y="20" width="119" height="20" uuid="470cb779-578f-4fc6-bf33-681086870297"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="LIMITEDEGASTO" uuid="d9df0939-260f-4566-99d7-6b4835d58058">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="9d7769da-b884-4f04-882b-ff4b206f5620">
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="ac169526-1a69-4132-a44b-c49aec86cba4"/>
+								<textFieldExpression><![CDATA[$F{LIMITE_GASTO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="226" y="0" width="119" height="20" uuid="b5500b30-4b11-4c38-bdfb-f4539c28b5e6"/>
+				<text><![CDATA[LIMITE DE GASTOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="345" y="20" width="100" height="20" uuid="435e2233-a21a-43a2-905e-349f7e5ab2ed"/>
+				<textFieldExpression><![CDATA[$F{alimentacion1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="40" width="100" height="20" uuid="0d403e82-20fd-44a8-9641-97289a2bab3d"/>
+				<textFieldExpression><![CDATA[$F{vivienda1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="60" width="100" height="20" uuid="3bdfb2a1-2a4a-41b1-88a7-0adb5b22a36d"/>
+				<textFieldExpression><![CDATA[$F{vestimenta1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="80" width="100" height="20" uuid="3db1bb76-9e01-42f8-a6d0-0e187628b22a"/>
+				<textFieldExpression><![CDATA[$F{salud1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="100" width="100" height="20" uuid="24a16ea5-aad3-4085-864c-26c2b65abca5"/>
+				<textFieldExpression><![CDATA[$F{educacion1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="0" width="100" height="20" uuid="fb07b5c9-a21a-4a78-8514-03f399ea2ba1"/>
+				<text><![CDATA[SALDO]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

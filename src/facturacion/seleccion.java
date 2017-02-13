@@ -32,7 +32,7 @@ public class seleccion extends JFrame {
     private String primero, segundo, tercero, cuarto, quinto;
     private Connection connection = null;
     private java.sql.ResultSet res;
-
+    private  JButton btnCargarEnBase;
     /**
      * Launch the application.
      */
@@ -108,6 +108,7 @@ public class seleccion extends JFrame {
                 tercero = "LOAD XML LOCAL INFILE '" + cadena + "' INTO TABLE detalle ROWS IDENTIFIED BY '<detalle>';";
                 cuarto = "LOAD XML LOCAL INFILE '" + cadena + "' INTO TABLE impuesto ROWS IDENTIFIED BY '<impuesto>';";
                 quinto = "LOAD XML LOCAL INFILE '" + cadena + "' INTO TABLE infoadicional ROWS IDENTIFIED BY '<infoAdicional>';";
+                btnCargarEnBase.setEnabled(true);
             }
         });
         button.setBounds(170, 118, 117, 22);
@@ -127,10 +128,10 @@ public class seleccion extends JFrame {
         lblOrganizadorDeFacturas.setBounds(10, 23, 438, 89);
         contentPane.add(lblOrganizadorDeFacturas);
 
-        JButton btnCargarEnBase = new JButton("Cargar en Base de Datos");
+        btnCargarEnBase = new JButton("Cargar en Base de Datos");
         btnCargarEnBase.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                
                 try {
                     connection.createStatement().execute(primero);
                     connection.createStatement().execute(tercero);
@@ -167,6 +168,7 @@ public class seleccion extends JFrame {
         });
         btnCargarEnBase.setBounds(149, 177, 166, 23);
         contentPane.add(btnCargarEnBase);
+        btnCargarEnBase.setEnabled(false);
     }
     
     public void limpiarBaseTransitoria() {

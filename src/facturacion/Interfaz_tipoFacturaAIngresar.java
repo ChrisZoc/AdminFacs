@@ -30,7 +30,7 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 	public Interfaz_tipoFacturaAIngresar() {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -91,10 +91,20 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
 		JButton btnRegistrarNuevoGasto = new JButton("Registrar gasto personal");
 		btnRegistrarNuevoGasto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+                            new TipoGastoNegocio().setVisible(true);
 			}
 		});
 		btnRegistrarNuevoGasto.setBounds(125, 233, 209, 25);
 		contentPane.add(btnRegistrarNuevoGasto);
+                
+                JButton btnReportes = new JButton("Generar Reportes");
+		btnReportes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+                            new InterfazReportes().setVisible(true);
+			}
+		});
+		btnReportes.setBounds(125, 280, 209, 25);
+		contentPane.add(btnReportes);
 		if(Admin){
 			btnGastosPersonales.setVisible(true);
 			btnRegistrarNuevoGasto.setVisible(true);
@@ -200,7 +210,6 @@ public class Interfaz_tipoFacturaAIngresar extends Interfaz_Login  {
         }else{
         	return true;
         	}
-
 	}
 }
 
