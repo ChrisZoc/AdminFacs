@@ -6,8 +6,6 @@
 package facturacion;
 
 import com.mysql.jdbc.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -284,28 +282,100 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
         }
         else
         {
-            String detalle = (String)cmbDetallesFactura.getSelectedItem();
-            String tipoGasto = Integer.toString(cmbTipoGasto.getSelectedIndex());
-            String cantidad = "";
-            try {
-                res = connection.createStatement().executeQuery("select cantidad from detalle where descripcion = '"+(String)cmbDetallesFactura.getSelectedItem()+"'");
-                while(res.next())
-                {
-                    cantidad = res.getString("cantidad");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            String[] datos ={usuario, tipoGasto,  cantidad};
-            controlExistencias.getSentencia().insertar(datos, "insert into gasto_negocio (codigo_cliente, tipo_gasto, cantidad) values (?,?,?)");
-            arreglodetalles.remove(cmbDetallesFactura.getSelectedItem());
-            cmbDetallesFactura.removeAllItems();
-            for(int i=0;i<arreglodetalles.size();i++)
+            if(rbtGastosNegocio.isSelected())
             {
-               cmbDetallesFactura.addItem(arreglodetalles.get(i));
+                String detalle = (String)cmbDetallesFactura.getSelectedItem();
+                String tipoGasto = Integer.toString(cmbTipoGasto.getSelectedIndex());
+                String cantidad = "";
+                try {
+                    res = connection.createStatement().executeQuery("select cantidad from detalle where descripcion = '"+(String)cmbDetallesFactura.getSelectedItem()+"'");
+                    while(res.next())
+                    {
+                        cantidad = res.getString("cantidad");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String[] datos ={usuario, tipoGasto,  cantidad};
+                controlExistencias.getSentencia().insertar(datos, "insert into gasto_negocio (codigo_cliente, tipo_gasto, cantidad) values (?,?,?)");
+                arreglodetalles.remove(cmbDetallesFactura.getSelectedItem());
+                cmbDetallesFactura.removeAllItems();
+                for(int i=0;i<arreglodetalles.size();i++)
+                {
+                   cmbDetallesFactura.addItem(arreglodetalles.get(i));
+                }
             }
-            
-            
+            else 
+            {
+                String detalle = (String)cmbDetallesFactura.getSelectedItem();
+                String tipogasto = (String)cmbTipoGasto.getSelectedItem();
+                String cantidad = "";
+                try {
+                    res = connection.createStatement().executeQuery("select cantidad from detalle where descripcion = '"+(String)cmbDetallesFactura.getSelectedItem()+"'");
+                    while(res.next())
+                    {
+                        cantidad = res.getString("cantidad");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Date d= new Date();
+                Calendar c = new GregorianCalendar();
+                c.setTime(d);
+                String anio = Integer.toString(c.get(Calendar.YEAR));
+                String[] datos = {usuario, anio, cantidad};
+                
+                if(cmbTipoGasto.getSelectedItem().equals("Alimentacion"))
+                {
+                    controlExistencias.getSentencia().insertar(datos, "Insert into gasto_personal (codigo_cliente, anio, alimentacion) values (?,?,?)");
+                    arreglodetalles.remove(cmbDetallesFactura.getSelectedItem());
+                    cmbDetallesFactura.removeAllItems();
+                    for(int i=0;i<arreglodetalles.size();i++)
+                    {
+                        cmbDetallesFactura.addItem(arreglodetalles.get(i));
+                    }
+                }
+                else if(cmbTipoGasto.getSelectedItem().equals("Vestimenta"))
+                {
+                    controlExistencias.getSentencia().insertar(datos, "insert into gasto_personal (codigo_cliente, anio, vestimenta) values (?,?,?)");
+                    arreglodetalles.remove(cmbDetallesFactura.getSelectedItem());
+                    cmbDetallesFactura.removeAllItems();
+                    for(int i=0;i<arreglodetalles.size();i++)
+                    {
+                        cmbDetallesFactura.addItem(arreglodetalles.get(i));
+                    }
+                }
+                else if(cmbTipoGasto.getSelectedItem().equals("Salud"))
+                {
+                    controlExistencias.getSentencia().insertar(datos, "insert into gasto_personal (codigo_cliente, anio, salud) values (?,?,?)");
+                    arreglodetalles.remove(cmbDetallesFactura.getSelectedItem());
+                    cmbDetallesFactura.removeAllItems();
+                    for(int i=0;i<arreglodetalles.size();i++)
+                    {
+                        cmbDetallesFactura.addItem(arreglodetalles.get(i));
+                    }
+                }
+                else if(cmbTipoGasto.getSelectedItem().equals("Educación"))
+                {
+                    controlExistencias.getSentencia().insertar(datos, "insert into gasto_personal (codigo_cliente, anio, educacion) values (?,?,?)");
+                    arreglodetalles.remove(cmbDetallesFactura.getSelectedItem());
+                    cmbDetallesFactura.removeAllItems();
+                    for(int i=0;i<arreglodetalles.size();i++)
+                    {
+                        cmbDetallesFactura.addItem(arreglodetalles.get(i));
+                    }
+                }
+                else
+                {
+                    controlExistencias.getSentencia().insertar(datos, "insert into gasto_personal (codigo_cliente, anio, vivienda) values (?,?,?)");
+                    arreglodetalles.remove(cmbDetallesFactura.getSelectedItem());
+                    cmbDetallesFactura.removeAllItems();
+                    for(int i=0;i<arreglodetalles.size();i++)
+                    {
+                        cmbDetallesFactura.addItem(arreglodetalles.get(i));
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_btnIngresarGastosActionPerformed
 
