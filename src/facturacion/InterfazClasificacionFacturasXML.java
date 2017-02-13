@@ -198,6 +198,7 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
                 String fecha = dia+"/"+mes+"/"+anio;
                 String datos[] ={codigoFactura,usuario,"Desconocido", fecha, formapago, totalFactura, IVA};
                 controlExistencias.getSentencia().insertar(datos, "insert into factura (Nnm_factura,cod_cliente, Nombre_empleado, Fecha_facturacion, cod_formapago, total_factura, IVA) values (?,?,?,?,?,?,?)");
+                btnIngresarGastos.setEnabled(true);
             } catch (SQLException ex) {
                 Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -215,7 +216,7 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
                     while(res.next())
                     {
                         cmbDetallesFactura.addItem(res.getString("descripcion"));
-                        //arreglodetalles.add(res.getString("descripcion"));
+                        arreglodetalles.add(res.getString("descripcion"));
                     }
                     cmbDetallesFactura.setSelectedIndex(-1);
                 } catch (SQLException ex) {
@@ -284,13 +285,38 @@ public class InterfazClasificacionFacturasXML extends javax.swing.JFrame {
         else
         {
             String detalle = (String)cmbDetallesFactura.getSelectedItem();
-            String tipoGasto = (String)cmbTipoGasto.getSelectedItem();
+            String tipoGasto = Integer.toString(cmbTipoGasto.getSelectedIndex());
+            String cantidad = "";
+            try {
+                res = connection.createStatement().executeQuery("select cantidad from detalle where descripcion = '"+(String)cmbDetallesFactura.getSelectedItem()+"'");
+                while(res.next())
+                {
+                    cantidad = res.getString("cantidad");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(InterfazClasificacionFacturasXML.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String[] datos ={usuario, tipoGasto,  cantidad};
+            controlExistencias.getSentencia().insertar(datos, "insert into gasto_negocio (codigo_cliente, tipo_gasto, cantidad) values (?,?,?)");
+            arreglodetalles.remove(cmbDetallesFactura.getSelectedItem());
+            cmbDetallesFactura.removeAllItems();
+            for(int i=0;i<arreglodetalles.size();i++)
+            {
+               cmbDetallesFactura.addItem(arreglodetalles.get(i));
+            }
+            
+            
         }
     }//GEN-LAST:event_btnIngresarGastosActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        if(arreglodetalles.size()>0)
+        {
+            JOptionPane.showMessageDialog(null, "No ha ingresado todos los detalles", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
         this.dispose();
+        limpiarBaseTransitoria();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     public void limpiarCajas()
