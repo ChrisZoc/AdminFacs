@@ -1,5 +1,10 @@
 package facturacion;
 
+import com.mysql.jdbc.Connection;
+import groovy.xml.Entity;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -268,6 +273,7 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
                 if(contr.ingresar_cliente())
                 {
                     JOptionPane.showMessageDialog(null,"El cliente se registro con exito ","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                    generarBasedeCliente();
                     limpiar();
                     bloquearCajas();
                 }
@@ -518,4 +524,14 @@ public class Interfaz_Clientes1 extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void generarBasedeCliente() {
+        conexion con=new conexion();
+        java.sql.Connection conn = con.conectado();
+        try {  
+            conn.createStatement().execute("INSERT INTO `gasto_personal`( `codigo_cliente`, `anio`, `alimentacion`, `vestimenta`, `salud`, `educacion`, `vivienda`) VALUES ('"+txtDocumento.getText()+"',2017,0,0,0,0,0)");
+        } catch (SQLException ex) {
+            Logger.getLogger(Interfaz_Clientes1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

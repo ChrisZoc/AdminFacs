@@ -152,6 +152,7 @@ public class seleccion extends JFrame {
 
                         existe = res.getInt("count(secuencial)");
                     }
+                    new InterfazClasificacionFacturasXML().setVisible(true);
                     System.out.println(existe);
                     if (existe > 1) {
                         JOptionPane.showMessageDialog(null, "factura duplicada");
